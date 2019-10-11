@@ -562,7 +562,14 @@ double CCPACSWing::GetWingspan()
 //     s: half span; A_half: Reference area of wing without symmetrical wing
 double CCPACSWing::GetAspectRatio()
 {
-    return 2.0*(pow_int(GetWingspan(),2)/GetReferenceArea(GetSymmetryAxis()));
+    double sym_factor = 1.0;
+    TiglSymmetryAxis sym_axis = GetSymmetryAxis();
+
+    if (sym_axis == TIGL_X_Z_PLANE) {
+        sym_factor = 2.0;
+    }
+
+    return pow_int(GetWingspan(),2)/(sym_factor*GetReferenceArea(TIGL_X_Y_PLANE));
 }
 
 /**

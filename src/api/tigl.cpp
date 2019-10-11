@@ -6604,8 +6604,42 @@ TIGL_COMMON_EXPORT TiglReturnCode tiglWingGetMAC(TiglCPACSConfigurationHandle cp
     }
 }
 
+TIGL_COMMON_EXPORT TiglReturnCode tiglWingGetAspectRatio(TiglCPACSConfigurationHandle cpacsHandle, const char* wingUID, double * wingAR)
+{
 
-TIGL_COMMON_EXPORT TiglReturnCode tiglWingGetWettedArea(TiglCPACSConfigurationHandle cpacsHandle, const char* wingUID,
+    if (wingAR == NULL) {
+        LOG(ERROR) << "argument wingAR is NULL in tiglConfigurationGetLength!";
+        return TIGL_NULL_POINTER;
+    }
+
+    if (wingUID == NULL) {
+        LOG(ERROR) << "Argument wingUID is NULL in tiglWingGetAspectRatio!";
+        return TIGL_NULL_POINTER;
+    }
+
+    try {
+        tigl::CCPACSConfigurationManager& manager = tigl::CCPACSConfigurationManager::GetInstance();
+        tigl::CCPACSConfiguration& config = manager.GetConfiguration(cpacsHandle);
+        tigl::CCPACSWing& wing = config.GetWing(wingUID);
+        *wingAR = wing.GetAspectRatio( );
+        return TIGL_SUCCESS;
+    }
+    catch (const tigl::CTiglError& ex) {
+        LOG(ERROR) << ex.what();
+        return ex.getCode();
+    }
+    catch (std::exception& ex) {
+        LOG(ERROR) << ex.what();
+        return TIGL_ERROR;
+    }
+    catch (...) {
+        LOG(ERROR) << "Caught an exception in tiglWingGetAspectRatio!";
+        return TIGL_ERROR;
+    }
+}
+
+
+TIGL_COMMON_EXPORT TiglReturnCode tiglWingGetWettedArea(TiglCPACSConfigurationHandle cpacsHandle, char* wingUID,
                                                         double *wettedAreaPtr)
 {
     if (wingUID == NULL) {

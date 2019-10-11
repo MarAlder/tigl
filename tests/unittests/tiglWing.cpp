@@ -303,6 +303,15 @@ TEST_F(WingSimple, wingGetMAC_success)
     ASSERT_NEAR(19./21., c_1, 1e-7);
 }
 
+TEST_F(WingSimple, wingGetAspectRatio_success)
+{
+    // double wingAR = 0.;
+    double wingAR = 0.;
+
+    tiglWingGetAspectRatio(tiglSimpleWingHandle, "Wing", &wingAR);
+    ASSERT_NEAR(16./3.5, wingAR, 1e-3);
+}
+
 TEST_F(WingSimple, wingGetReferenceArea_success)
 {
     double ref = 0.;

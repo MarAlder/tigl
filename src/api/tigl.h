@@ -1606,6 +1606,22 @@ TIGL_COMMON_EXPORT TiglReturnCode tiglWingGetSpan(TiglCPACSConfigurationHandle c
 */
 TIGL_COMMON_EXPORT TiglReturnCode tiglWingGetMAC(TiglCPACSConfigurationHandle cpacsHandle, const char* wingUID, double *mac_chord, double *mac_x, double *mac_y, double *mac_z);
 
+/**
+* @brief This function calculates the aspect ratio of a wing.
+*
+* Calculation of the wing aspect ratio. The ratio is formed from the square of the wing span and the reference area.
+* The reference area is the projected area on the X-Y plane in the TiGL coordinate system.
+*
+* @param[in] cpacsHandle Handle for the CPACS configuration
+* @param[in] wingUID     UID of the Wing
+* @param[out] wingAR     Wing aspect ratio
+*
+* @return
+*   - TIGL_SUCCESS if no error occurred
+*   - TIGL_NULL_POINTER if wingUID is null pointer
+*   - TIGL_ERROR In case of an unknown error
+*/
+TIGL_COMMON_EXPORT TiglReturnCode tiglWingGetAspectRatio(TiglCPACSConfigurationHandle cpacsHandle, const char* wingUID, double * wingAR);
 
 
 /*@}*/
@@ -4456,7 +4472,7 @@ TIGL_COMMON_EXPORT TiglReturnCode tiglWingGetReferenceArea(TiglCPACSConfiguratio
 *   - TIGL_ERROR if some other error occurred
 */
 TIGL_COMMON_EXPORT TiglReturnCode tiglWingGetWettedArea(TiglCPACSConfigurationHandle cpacsHandle, 
-                                                        const char* wingUID,
+                                                        char* wingUID,
                                                         double *wettedAreaPtr);
 
 /*@}*/
