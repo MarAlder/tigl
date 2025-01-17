@@ -18,6 +18,7 @@
 #include <cassert>
 #include "CPACSBoundingBox.h"
 #include "CPACSDeckElementGeometry.h"
+#include "CPACSElementGeometry.h"
 #include "CTiglError.h"
 #include "CTiglLogging.h"
 #include "CTiglUIDManager.h"
@@ -36,26 +37,33 @@ namespace generated
     {
         //assert(parent != NULL);
         m_parent = parent;
+        m_parentType = &typeid(CPACSDeckElementGeometry);
+    }
+
+    CPACSBoundingBox::CPACSBoundingBox(CPACSElementGeometry* parent, CTiglUIDManager* uidMgr)
+        : m_uidMgr(uidMgr)
+        , m_deltaX(0)
+        , m_deltaY(0)
+        , m_deltaZ(0)
+    {
+        //assert(parent != NULL);
+        m_parent = parent;
+        m_parentType = &typeid(CPACSElementGeometry);
     }
 
     CPACSBoundingBox::~CPACSBoundingBox()
     {
     }
 
-    const CPACSDeckElementGeometry* CPACSBoundingBox::GetParent() const
-    {
-        return m_parent;
-    }
-
-    CPACSDeckElementGeometry* CPACSBoundingBox::GetParent()
-    {
-        return m_parent;
-    }
-
     const CTiglUIDObject* CPACSBoundingBox::GetNextUIDParent() const
     {
         if (m_parent) {
-            return m_parent->GetNextUIDParent();
+            if (IsParent<CPACSDeckElementGeometry>()) {
+                return GetParent<CPACSDeckElementGeometry>()->GetNextUIDParent();
+            }
+            if (IsParent<CPACSElementGeometry>()) {
+                return GetParent<CPACSElementGeometry>()->GetNextUIDParent();
+            }
         }
         return nullptr;
     }
@@ -63,7 +71,12 @@ namespace generated
     CTiglUIDObject* CPACSBoundingBox::GetNextUIDParent()
     {
         if (m_parent) {
-            return m_parent->GetNextUIDParent();
+            if (IsParent<CPACSDeckElementGeometry>()) {
+                return GetParent<CPACSDeckElementGeometry>()->GetNextUIDParent();
+            }
+            if (IsParent<CPACSElementGeometry>()) {
+                return GetParent<CPACSElementGeometry>()->GetNextUIDParent();
+            }
         }
         return nullptr;
     }

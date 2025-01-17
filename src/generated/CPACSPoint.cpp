@@ -21,6 +21,7 @@
 #include "CPACSControlSurfaceHingePoint.h"
 #include "CPACSControlSurfaceStep.h"
 #include "CPACSDeckElementMass.h"
+#include "CPACSElementMass.h"
 #include "CPACSPoint.h"
 #include "CPACSPointList.h"
 #include "CTiglError.h"
@@ -64,6 +65,14 @@ namespace generated
         m_parentType = &typeid(CPACSDeckElementMass);
     }
 
+    CPACSPoint::CPACSPoint(CPACSElementMass* parent, CTiglUIDManager* uidMgr)
+        : m_uidMgr(uidMgr)
+    {
+        //assert(parent != NULL);
+        m_parent = parent;
+        m_parentType = &typeid(CPACSElementMass);
+    }
+
     CPACSPoint::CPACSPoint(CPACSPointList* parent, CTiglUIDManager* uidMgr)
         : m_uidMgr(uidMgr)
     {
@@ -100,6 +109,12 @@ namespace generated
             if (IsParent<CPACSDeckElementMass>()) {
                 return GetParent<CPACSDeckElementMass>();
             }
+            if (IsParent<CPACSElementMass>()) {
+                if (GetParent<CPACSElementMass>()->GetUID())
+                    return GetParent<CPACSElementMass>();
+                else
+                    return GetParent<CPACSElementMass>()->GetNextUIDParent();
+            }
             if (IsParent<CPACSPointList>()) {
                 return GetParent<CPACSPointList>()->GetNextUIDParent();
             }
@@ -127,6 +142,12 @@ namespace generated
             }
             if (IsParent<CPACSDeckElementMass>()) {
                 return GetParent<CPACSDeckElementMass>();
+            }
+            if (IsParent<CPACSElementMass>()) {
+                if (GetParent<CPACSElementMass>()->GetUID())
+                    return GetParent<CPACSElementMass>();
+                else
+                    return GetParent<CPACSElementMass>()->GetNextUIDParent();
             }
             if (IsParent<CPACSPointList>()) {
                 return GetParent<CPACSPointList>()->GetNextUIDParent();
