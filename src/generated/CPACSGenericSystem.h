@@ -23,6 +23,7 @@
 #include <string>
 #include <TiglSymmetryAxis.h>
 #include <tixi.h>
+#include "CPACSComponents.h"
 #include "CPACSGenericSystem_geometricBaseType.h"
 #include "CTiglUIDObject.h"
 #include "tigl_internal.h"
@@ -81,6 +82,9 @@ namespace generated
         TIGL_EXPORT virtual const CCPACSTransformation& GetTransformation() const;
         TIGL_EXPORT virtual CCPACSTransformation& GetTransformation();
 
+        TIGL_EXPORT virtual const CPACSComponents& GetComponents() const;
+        TIGL_EXPORT virtual CPACSComponents& GetComponents();
+
     protected:
         CCPACSGenericSystems* m_parent;
 
@@ -101,6 +105,8 @@ namespace generated
         boost::optional<CPACSGenericSystem_geometricBaseType> m_geometricBaseType;
 
         CCPACSTransformation                                  m_transformation;
+
+        CPACSComponents                                       m_components;
 
     private:
         CPACSGenericSystem(const CPACSGenericSystem&) = delete;

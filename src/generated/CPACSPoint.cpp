@@ -24,6 +24,7 @@
 #include "CPACSElementMass.h"
 #include "CPACSPoint.h"
 #include "CPACSPointList.h"
+#include "CPACSTransformationRT.h"
 #include "CTiglError.h"
 #include "CTiglLogging.h"
 #include "CTiglUIDManager.h"
@@ -89,6 +90,14 @@ namespace generated
         m_parentType = &typeid(CCPACSTransformation);
     }
 
+    CPACSPoint::CPACSPoint(CPACSTransformationRT* parent, CTiglUIDManager* uidMgr)
+        : m_uidMgr(uidMgr)
+    {
+        //assert(parent != NULL);
+        m_parent = parent;
+        m_parentType = &typeid(CPACSTransformationRT);
+    }
+
     CPACSPoint::~CPACSPoint()
     {
         if (m_uidMgr && m_uID) m_uidMgr->TryUnregisterObject(*m_uID);
@@ -124,6 +133,12 @@ namespace generated
                 else
                     return GetParent<CCPACSTransformation>()->GetNextUIDParent();
             }
+            if (IsParent<CPACSTransformationRT>()) {
+                if (GetParent<CPACSTransformationRT>()->GetUID())
+                    return GetParent<CPACSTransformationRT>();
+                else
+                    return GetParent<CPACSTransformationRT>()->GetNextUIDParent();
+            }
         }
         return nullptr;
     }
@@ -157,6 +172,12 @@ namespace generated
                     return GetParent<CCPACSTransformation>();
                 else
                     return GetParent<CCPACSTransformation>()->GetNextUIDParent();
+            }
+            if (IsParent<CPACSTransformationRT>()) {
+                if (GetParent<CPACSTransformationRT>()->GetUID())
+                    return GetParent<CPACSTransformationRT>();
+                else
+                    return GetParent<CPACSTransformationRT>()->GetNextUIDParent();
             }
         }
         return nullptr;
