@@ -13408,6 +13408,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                         </xsd:simpleType>
                     </xsd:element>
                     <xsd:element name="transformation" type="transformationType"/>
+                    <xsd:element name="components" type="componentsType"/>
                 </xsd:all>
                 <xsd:attribute name="uID" type="xsd:ID" use="required"/>
                 <xsd:attribute name="symmetry" type="symmetryXyXzYzType"/>
@@ -36677,6 +36678,126 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                     <xsd:element name="linkToFile" type="linkToFileType"/>
                     <xsd:element name="transformation" type="transformationType"/>
                 </xsd:all>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="componentsType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Components</ddue:para>
+                    </ddue:summary>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:sequence>
+                    <xsd:element name="component" maxOccurs="unbounded" type="componentType"/>
+                </xsd:sequence>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="componentType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Component</ddue:para>
+                    </ddue:summary>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:sequence>
+                    <xsd:element name="name" type="stringBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>
+                                Name
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="description" minOccurs="0" type="stringBaseType">
+                        <xsd:annotation>
+                            <xsd:documentation>
+                                Description
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:choice>
+                        <xsd:element name="systemElementUID" type="stringUIDBaseType">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    Link to pre-defined system element uID
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                        <xsd:element name="rotorElementUID" type="stringUIDBaseType">
+                            <xsd:annotation>
+                                <xsd:documentation>
+                                    Link to pre-defined system element uID
+                                </xsd:documentation>
+                            </xsd:annotation>
+                        </xsd:element>
+                    </xsd:choice>
+                    <xsd:element name="parentUID" minOccurs="0" type="stringUIDBaseType"/>
+                    <xsd:element name="transformation" minOccurs="0" type="transformationRTType"/>
+                    <xsd:element name="structuralMountUIDs" minOccurs="0" type="uIDSequenceType">
+                        <xsd:annotation>
+                            <xsd:documentation>UIDs of the structural mounts as defined in the fuselages or wings (see structuralMountType for further details).</xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:sequence>
+                <xsd:attribute name="uID" use="required" type="xsd:ID"/>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="transformationRTType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <sd:schemaDoc>
+                    <ddue:summary>
+                        <ddue:para>Transformation</ddue:para>
+                    </ddue:summary>
+                    <ddue:remarks>
+                        <ddue:para>Transformation type, containing a set of
+                            transformations. The order of the transformations is
+                            rotation -&gt; translation, and they are executed in this
+                            order. Any of them can be omitted; it will be replaced by its
+                            defaults.</ddue:para>
+                    </ddue:remarks>
+                </sd:schemaDoc>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:complexContent>
+            <xsd:extension base="complexBaseType">
+                <xsd:all>
+                    <xsd:element name="rotation" minOccurs="0" type="pointType">
+                        <xsd:annotation>
+                            <xsd:documentation>Rotation data default: 0,0,0. The rotation
+                                angles are the three Euler angles to describe the orientation of
+                                the coordinate system. The order is always xyz in CPACS.
+                                Therefore the first rotation is around the x-axis, the second
+                                rotation is around the rotated y-axis (y') and the third
+                                rotation is around the two times rotated z-axis (z'').
+                            </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                    <xsd:element name="translation" minOccurs="0" type="pointAbsRelType">
+                        <xsd:annotation>
+                            <xsd:documentation>Translation data default: 0,0,0. Translations
+                                can either be made absolute in the global coordinate system
+                                (absGlobal) or absolute in the local Coordinate system (absLocal).
+                                </xsd:documentation>
+                        </xsd:annotation>
+                    </xsd:element>
+                </xsd:all>
+                <xsd:attribute name="uID" type="xsd:ID"/>
             </xsd:extension>
         </xsd:complexContent>
     </xsd:complexType>
