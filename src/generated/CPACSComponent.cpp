@@ -16,8 +16,8 @@
 // limitations under the License.
 
 #include <cassert>
+#include "CCPACSComponents.h"
 #include "CPACSComponent.h"
-#include "CPACSComponents.h"
 #include "CTiglError.h"
 #include "CTiglLogging.h"
 #include "CTiglUIDManager.h"
@@ -27,7 +27,7 @@ namespace tigl
 {
 namespace generated
 {
-    CPACSComponent::CPACSComponent(CPACSComponents* parent, CTiglUIDManager* uidMgr)
+    CPACSComponent::CPACSComponent(CCPACSComponents* parent, CTiglUIDManager* uidMgr)
         : m_uidMgr(uidMgr)
     {
         //assert(parent != NULL);
@@ -44,12 +44,12 @@ namespace generated
         }
     }
 
-    const CPACSComponents* CPACSComponent::GetParent() const
+    const CCPACSComponents* CPACSComponent::GetParent() const
     {
         return m_parent;
     }
 
-    CPACSComponents* CPACSComponent::GetParent()
+    CCPACSComponents* CPACSComponent::GetParent()
     {
         return m_parent;
     }
@@ -147,7 +147,7 @@ namespace generated
 
         // read element transformation
         if (tixi::TixiCheckElement(tixiHandle, xpath + "/transformation")) {
-            m_transformation = boost::in_place(this, m_uidMgr);
+            m_transformation = boost::in_place(reinterpret_cast<CCPACSComponent*>(this), m_uidMgr);
             try {
                 m_transformation->ReadCPACS(tixiHandle, xpath + "/transformation");
             } catch(const std::exception& e) {
@@ -158,7 +158,7 @@ namespace generated
 
         // read element structuralMountUIDs
         if (tixi::TixiCheckElement(tixiHandle, xpath + "/structuralMountUIDs")) {
-            m_structuralMountUIDs = boost::in_place(this, m_uidMgr);
+            m_structuralMountUIDs = boost::in_place(reinterpret_cast<CCPACSComponent*>(this), m_uidMgr);
             try {
                 m_structuralMountUIDs->ReadCPACS(tixiHandle, xpath + "/structuralMountUIDs");
             } catch(const std::exception& e) {
@@ -362,12 +362,12 @@ namespace generated
         m_parentUID = value;
     }
 
-    const boost::optional<CPACSTransformationRT>& CPACSComponent::GetTransformation() const
+    const boost::optional<CCPACSTransformationRT>& CPACSComponent::GetTransformation() const
     {
         return m_transformation;
     }
 
-    boost::optional<CPACSTransformationRT>& CPACSComponent::GetTransformation()
+    boost::optional<CCPACSTransformationRT>& CPACSComponent::GetTransformation()
     {
         return m_transformation;
     }
@@ -382,10 +382,10 @@ namespace generated
         return m_structuralMountUIDs;
     }
 
-    CPACSTransformationRT& CPACSComponent::GetTransformation(CreateIfNotExistsTag)
+    CCPACSTransformationRT& CPACSComponent::GetTransformation(CreateIfNotExistsTag)
     {
         if (!m_transformation)
-            m_transformation = boost::in_place(this, m_uidMgr);
+            m_transformation = boost::in_place(reinterpret_cast<CCPACSComponent*>(this), m_uidMgr);
         return *m_transformation;
     }
 
@@ -397,7 +397,7 @@ namespace generated
     CPACSUIDSequence& CPACSComponent::GetStructuralMountUIDs(CreateIfNotExistsTag)
     {
         if (!m_structuralMountUIDs)
-            m_structuralMountUIDs = boost::in_place(this, m_uidMgr);
+            m_structuralMountUIDs = boost::in_place(reinterpret_cast<CCPACSComponent*>(this), m_uidMgr);
         return *m_structuralMountUIDs;
     }
 

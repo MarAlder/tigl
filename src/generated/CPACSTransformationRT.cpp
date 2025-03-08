@@ -16,7 +16,7 @@
 // limitations under the License.
 
 #include <cassert>
-#include "CPACSComponent.h"
+#include "CCPACSComponent.h"
 #include "CPACSTransformationRT.h"
 #include "CTiglError.h"
 #include "CTiglLogging.h"
@@ -27,7 +27,7 @@ namespace tigl
 {
 namespace generated
 {
-    CPACSTransformationRT::CPACSTransformationRT(CPACSComponent* parent, CTiglUIDManager* uidMgr)
+    CPACSTransformationRT::CPACSTransformationRT(CCPACSComponent* parent, CTiglUIDManager* uidMgr)
         : m_uidMgr(uidMgr)
     {
         //assert(parent != NULL);
@@ -39,12 +39,12 @@ namespace generated
         if (m_uidMgr && m_uID) m_uidMgr->TryUnregisterObject(*m_uID);
     }
 
-    const CPACSComponent* CPACSTransformationRT::GetParent() const
+    const CCPACSComponent* CPACSTransformationRT::GetParent() const
     {
         return m_parent;
     }
 
-    CPACSComponent* CPACSTransformationRT::GetParent()
+    CCPACSComponent* CPACSTransformationRT::GetParent()
     {
         return m_parent;
     }
@@ -87,7 +87,7 @@ namespace generated
 
         // read element rotation
         if (tixi::TixiCheckElement(tixiHandle, xpath + "/rotation")) {
-            m_rotation = boost::in_place(this, m_uidMgr);
+            m_rotation = boost::in_place(reinterpret_cast<CCPACSTransformationRT*>(this), m_uidMgr);
             try {
                 m_rotation->ReadCPACS(tixiHandle, xpath + "/rotation");
             } catch(const std::exception& e) {
@@ -98,7 +98,7 @@ namespace generated
 
         // read element translation
         if (tixi::TixiCheckElement(tixiHandle, xpath + "/translation")) {
-            m_translation = boost::in_place(this, m_uidMgr);
+            m_translation = boost::in_place(reinterpret_cast<CCPACSTransformationRT*>(this), m_uidMgr);
             try {
                 m_translation->ReadCPACS(tixiHandle, xpath + "/translation");
             } catch(const std::exception& e) {
@@ -190,7 +190,7 @@ namespace generated
     CCPACSPoint& CPACSTransformationRT::GetRotation(CreateIfNotExistsTag)
     {
         if (!m_rotation)
-            m_rotation = boost::in_place(this, m_uidMgr);
+            m_rotation = boost::in_place(reinterpret_cast<CCPACSTransformationRT*>(this), m_uidMgr);
         return *m_rotation;
     }
 
@@ -202,7 +202,7 @@ namespace generated
     CCPACSPointAbsRel& CPACSTransformationRT::GetTranslation(CreateIfNotExistsTag)
     {
         if (!m_translation)
-            m_translation = boost::in_place(this, m_uidMgr);
+            m_translation = boost::in_place(reinterpret_cast<CCPACSTransformationRT*>(this), m_uidMgr);
         return *m_translation;
     }
 

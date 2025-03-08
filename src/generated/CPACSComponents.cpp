@@ -16,8 +16,8 @@
 // limitations under the License.
 
 #include <cassert>
+#include <CCPACSComponent.h>
 #include "CCPACSGenericSystem.h"
-#include "CPACSComponent.h"
 #include "CPACSComponents.h"
 #include "CTiglError.h"
 #include "CTiglLogging.h"
@@ -80,7 +80,7 @@ namespace generated
     {
         // read element component
         if (tixi::TixiCheckElement(tixiHandle, xpath + "/component")) {
-            tixi::TixiReadElements(tixiHandle, xpath + "/component", m_components, 1, tixi::xsdUnbounded, this, m_uidMgr);
+            tixi::TixiReadElements(tixiHandle, xpath + "/component", m_components, 1, tixi::xsdUnbounded, reinterpret_cast<CCPACSComponents*>(this), m_uidMgr);
         }
 
     }
@@ -92,23 +92,23 @@ namespace generated
 
     }
 
-    const std::vector<std::unique_ptr<CPACSComponent>>& CPACSComponents::GetComponents() const
+    const std::vector<std::unique_ptr<CCPACSComponent>>& CPACSComponents::GetComponents() const
     {
         return m_components;
     }
 
-    std::vector<std::unique_ptr<CPACSComponent>>& CPACSComponents::GetComponents()
+    std::vector<std::unique_ptr<CCPACSComponent>>& CPACSComponents::GetComponents()
     {
         return m_components;
     }
 
-    CPACSComponent& CPACSComponents::AddComponent()
+    CCPACSComponent& CPACSComponents::AddComponent()
     {
-        m_components.push_back(make_unique<CPACSComponent>(this, m_uidMgr));
+        m_components.push_back(make_unique<CCPACSComponent>(reinterpret_cast<CCPACSComponents*>(this), m_uidMgr));
         return *m_components.back();
     }
 
-    void CPACSComponents::RemoveComponent(CPACSComponent& ref)
+    void CPACSComponents::RemoveComponent(CCPACSComponent& ref)
     {
         for (std::size_t i = 0; i < m_components.size(); i++) {
             if (m_components[i].get() == &ref) {

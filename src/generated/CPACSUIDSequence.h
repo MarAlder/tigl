@@ -29,11 +29,11 @@ namespace tigl
 {
 class CTiglUIDManager;
 class CTiglUIDObject;
+class CCPACSComponent;
 class CCPACSDuctAssembly;
 
 namespace generated
 {
-    class CPACSComponent;
     class CPACSLandingGearStrutAttachment;
 
     // This class is used in:
@@ -47,7 +47,7 @@ namespace generated
     class CPACSUIDSequence : public ITiglUIDRefObject
     {
     public:
-        TIGL_EXPORT CPACSUIDSequence(CPACSComponent* parent, CTiglUIDManager* uidMgr);
+        TIGL_EXPORT CPACSUIDSequence(CCPACSComponent* parent, CTiglUIDManager* uidMgr);
         TIGL_EXPORT CPACSUIDSequence(CCPACSDuctAssembly* parent, CTiglUIDManager* uidMgr);
         TIGL_EXPORT CPACSUIDSequence(CPACSLandingGearStrutAttachment* parent, CTiglUIDManager* uidMgr);
 
@@ -62,7 +62,7 @@ namespace generated
         template<typename P>
         P* GetParent()
         {
-            static_assert(std::is_same<P, CPACSComponent>::value || std::is_same<P, CCPACSDuctAssembly>::value || std::is_same<P, CPACSLandingGearStrutAttachment>::value, "template argument for P is not a parent class of CPACSUIDSequence");
+            static_assert(std::is_same<P, CCPACSComponent>::value || std::is_same<P, CCPACSDuctAssembly>::value || std::is_same<P, CPACSLandingGearStrutAttachment>::value, "template argument for P is not a parent class of CPACSUIDSequence");
             if (!IsParent<P>()) {
                 throw CTiglError("bad parent");
             }
@@ -72,7 +72,7 @@ namespace generated
         template<typename P>
         const P* GetParent() const
         {
-            static_assert(std::is_same<P, CPACSComponent>::value || std::is_same<P, CCPACSDuctAssembly>::value || std::is_same<P, CPACSLandingGearStrutAttachment>::value, "template argument for P is not a parent class of CPACSUIDSequence");
+            static_assert(std::is_same<P, CCPACSComponent>::value || std::is_same<P, CCPACSDuctAssembly>::value || std::is_same<P, CPACSLandingGearStrutAttachment>::value, "template argument for P is not a parent class of CPACSUIDSequence");
             if (!IsParent<P>()) {
                 throw CTiglError("bad parent");
             }
@@ -115,6 +115,5 @@ namespace generated
 
 // Aliases in tigl namespace
 using CCPACSUIDSequence = generated::CPACSUIDSequence;
-using CCPACSComponent = generated::CPACSComponent;
 using CCPACSLandingGearStrutAttachment = generated::CPACSLandingGearStrutAttachment;
 } // namespace tigl

@@ -30,11 +30,10 @@
 namespace tigl
 {
 class CTiglUIDManager;
+class CCPACSComponent;
 
 namespace generated
 {
-    class CPACSComponent;
-
     // This class is used in:
     // CPACSComponent
 
@@ -49,13 +48,13 @@ namespace generated
     class CPACSTransformationRT : public CTiglOptUIDObject
     {
     public:
-        TIGL_EXPORT CPACSTransformationRT(CPACSComponent* parent, CTiglUIDManager* uidMgr);
+        TIGL_EXPORT CPACSTransformationRT(CCPACSComponent* parent, CTiglUIDManager* uidMgr);
 
         TIGL_EXPORT virtual ~CPACSTransformationRT();
 
-        TIGL_EXPORT CPACSComponent* GetParent();
+        TIGL_EXPORT CCPACSComponent* GetParent();
 
-        TIGL_EXPORT const CPACSComponent* GetParent() const;
+        TIGL_EXPORT const CCPACSComponent* GetParent() const;
 
         TIGL_EXPORT virtual CTiglUIDObject* GetNextUIDParent();
         TIGL_EXPORT virtual const CTiglUIDObject* GetNextUIDParent() const;
@@ -82,7 +81,7 @@ namespace generated
         TIGL_EXPORT virtual void RemoveTranslation();
 
     protected:
-        CPACSComponent* m_parent;
+        CCPACSComponent* m_parent;
 
         CTiglUIDManager* m_uidMgr;
 
@@ -110,7 +109,5 @@ namespace generated
     };
 } // namespace generated
 
-// Aliases in tigl namespace
-using CCPACSTransformationRT = generated::CPACSTransformationRT;
-using CCPACSComponent = generated::CPACSComponent;
+// CPACSTransformationRT is customized, use type CCPACSTransformationRT directly
 } // namespace tigl

@@ -16,8 +16,8 @@
 // limitations under the License.
 
 #include <cassert>
+#include "CCPACSComponent.h"
 #include "CCPACSDuctAssembly.h"
-#include "CPACSComponent.h"
 #include "CPACSLandingGearStrutAttachment.h"
 #include "CPACSUIDSequence.h"
 #include "CTiglError.h"
@@ -30,12 +30,12 @@ namespace tigl
 {
 namespace generated
 {
-    CPACSUIDSequence::CPACSUIDSequence(CPACSComponent* parent, CTiglUIDManager* uidMgr)
+    CPACSUIDSequence::CPACSUIDSequence(CCPACSComponent* parent, CTiglUIDManager* uidMgr)
         : m_uidMgr(uidMgr)
     {
         //assert(parent != NULL);
         m_parent = parent;
-        m_parentType = &typeid(CPACSComponent);
+        m_parentType = &typeid(CCPACSComponent);
     }
 
     CPACSUIDSequence::CPACSUIDSequence(CCPACSDuctAssembly* parent, CTiglUIDManager* uidMgr)
@@ -66,8 +66,8 @@ namespace generated
     const CTiglUIDObject* CPACSUIDSequence::GetNextUIDParent() const
     {
         if (m_parent) {
-            if (IsParent<CPACSComponent>()) {
-                return GetParent<CPACSComponent>();
+            if (IsParent<CCPACSComponent>()) {
+                return GetParent<CCPACSComponent>();
             }
             if (IsParent<CCPACSDuctAssembly>()) {
                 return GetParent<CCPACSDuctAssembly>();
@@ -82,8 +82,8 @@ namespace generated
     CTiglUIDObject* CPACSUIDSequence::GetNextUIDParent()
     {
         if (m_parent) {
-            if (IsParent<CPACSComponent>()) {
-                return GetParent<CPACSComponent>();
+            if (IsParent<CCPACSComponent>()) {
+                return GetParent<CCPACSComponent>();
             }
             if (IsParent<CCPACSDuctAssembly>()) {
                 return GetParent<CCPACSDuctAssembly>();

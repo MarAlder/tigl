@@ -31,11 +31,11 @@ namespace tigl
 {
 class CTiglUIDManager;
 class CCPACSTransformation;
+class CCPACSTransformationRT;
 
 namespace generated
 {
     class CPACSStrutAssembly;
-    class CPACSTransformationRT;
 
     // This class is used in:
     // CPACSStrutAssembly
@@ -56,7 +56,7 @@ namespace generated
     public:
         TIGL_EXPORT CPACSPointAbsRel(CPACSStrutAssembly* parent, CTiglUIDManager* uidMgr);
         TIGL_EXPORT CPACSPointAbsRel(CCPACSTransformation* parent, CTiglUIDManager* uidMgr);
-        TIGL_EXPORT CPACSPointAbsRel(CPACSTransformationRT* parent, CTiglUIDManager* uidMgr);
+        TIGL_EXPORT CPACSPointAbsRel(CCPACSTransformationRT* parent, CTiglUIDManager* uidMgr);
 
         TIGL_EXPORT virtual ~CPACSPointAbsRel();
 
@@ -69,7 +69,7 @@ namespace generated
         template<typename P>
         P* GetParent()
         {
-            static_assert(std::is_same<P, CPACSStrutAssembly>::value || std::is_same<P, CCPACSTransformation>::value || std::is_same<P, CPACSTransformationRT>::value, "template argument for P is not a parent class of CPACSPointAbsRel");
+            static_assert(std::is_same<P, CPACSStrutAssembly>::value || std::is_same<P, CCPACSTransformation>::value || std::is_same<P, CCPACSTransformationRT>::value, "template argument for P is not a parent class of CPACSPointAbsRel");
             if (!IsParent<P>()) {
                 throw CTiglError("bad parent");
             }
@@ -79,7 +79,7 @@ namespace generated
         template<typename P>
         const P* GetParent() const
         {
-            static_assert(std::is_same<P, CPACSStrutAssembly>::value || std::is_same<P, CCPACSTransformation>::value || std::is_same<P, CPACSTransformationRT>::value, "template argument for P is not a parent class of CPACSPointAbsRel");
+            static_assert(std::is_same<P, CPACSStrutAssembly>::value || std::is_same<P, CCPACSTransformation>::value || std::is_same<P, CCPACSTransformationRT>::value, "template argument for P is not a parent class of CPACSPointAbsRel");
             if (!IsParent<P>()) {
                 throw CTiglError("bad parent");
             }
@@ -142,5 +142,4 @@ namespace generated
 
 // Aliases in tigl namespace
 using CCPACSStrutAssembly = generated::CPACSStrutAssembly;
-using CCPACSTransformationRT = generated::CPACSTransformationRT;
 } // namespace tigl

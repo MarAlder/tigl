@@ -263,12 +263,12 @@ namespace generated
         return m_transformation;
     }
 
-    const CPACSComponents& CPACSGenericSystem::GetComponents() const
+    const CCPACSComponents& CPACSGenericSystem::GetComponents() const
     {
         return m_components;
     }
 
-    CPACSComponents& CPACSGenericSystem::GetComponents()
+    CCPACSComponents& CPACSGenericSystem::GetComponents()
     {
         return m_components;
     }

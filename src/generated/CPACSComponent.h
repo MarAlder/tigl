@@ -19,9 +19,9 @@
 
 #include <boost/optional.hpp>
 #include <boost/utility/in_place_factory.hpp>
+#include <CCPACSTransformationRT.h>
 #include <string>
 #include <tixi.h>
-#include "CPACSTransformationRT.h"
 #include "CPACSUIDSequence.h"
 #include "CreateIfNotExists.h"
 #include "CTiglUIDObject.h"
@@ -31,11 +31,10 @@
 namespace tigl
 {
 class CTiglUIDManager;
+class CCPACSComponents;
 
 namespace generated
 {
-    class CPACSComponents;
-
     // This class is used in:
     // CPACSComponents
 
@@ -45,13 +44,13 @@ namespace generated
     class CPACSComponent : public CTiglReqUIDObject, public ITiglUIDRefObject
     {
     public:
-        TIGL_EXPORT CPACSComponent(CPACSComponents* parent, CTiglUIDManager* uidMgr);
+        TIGL_EXPORT CPACSComponent(CCPACSComponents* parent, CTiglUIDManager* uidMgr);
 
         TIGL_EXPORT virtual ~CPACSComponent();
 
-        TIGL_EXPORT CPACSComponents* GetParent();
+        TIGL_EXPORT CCPACSComponents* GetParent();
 
-        TIGL_EXPORT const CPACSComponents* GetParent() const;
+        TIGL_EXPORT const CCPACSComponents* GetParent() const;
 
         TIGL_EXPORT virtual CTiglUIDObject* GetNextUIDParent();
         TIGL_EXPORT virtual const CTiglUIDObject* GetNextUIDParent() const;
@@ -82,43 +81,43 @@ namespace generated
         TIGL_EXPORT virtual const boost::optional<std::string>& GetParentUID() const;
         TIGL_EXPORT virtual void SetParentUID(const boost::optional<std::string>& value);
 
-        TIGL_EXPORT virtual const boost::optional<CPACSTransformationRT>& GetTransformation() const;
-        TIGL_EXPORT virtual boost::optional<CPACSTransformationRT>& GetTransformation();
+        TIGL_EXPORT virtual const boost::optional<CCPACSTransformationRT>& GetTransformation() const;
+        TIGL_EXPORT virtual boost::optional<CCPACSTransformationRT>& GetTransformation();
 
         TIGL_EXPORT virtual const boost::optional<CPACSUIDSequence>& GetStructuralMountUIDs() const;
         TIGL_EXPORT virtual boost::optional<CPACSUIDSequence>& GetStructuralMountUIDs();
 
-        TIGL_EXPORT virtual CPACSTransformationRT& GetTransformation(CreateIfNotExistsTag);
+        TIGL_EXPORT virtual CCPACSTransformationRT& GetTransformation(CreateIfNotExistsTag);
         TIGL_EXPORT virtual void RemoveTransformation();
 
         TIGL_EXPORT virtual CPACSUIDSequence& GetStructuralMountUIDs(CreateIfNotExistsTag);
         TIGL_EXPORT virtual void RemoveStructuralMountUIDs();
 
     protected:
-        CPACSComponents* m_parent;
+        CCPACSComponents* m_parent;
 
         CTiglUIDManager* m_uidMgr;
 
-        std::string                            m_uID;
+        std::string                             m_uID;
 
         /// Name
-        std::string                            m_name;
+        std::string                             m_name;
 
         /// Description
-        boost::optional<std::string>           m_description;
+        boost::optional<std::string>            m_description;
 
         /// Link to pre-defined system element uID
-        boost::optional<std::string>           m_systemElementUID_choice1;
+        boost::optional<std::string>            m_systemElementUID_choice1;
 
         /// Link to pre-defined system element uID
-        boost::optional<std::string>           m_rotorElementUID_choice2;
+        boost::optional<std::string>            m_rotorElementUID_choice2;
 
-        boost::optional<std::string>           m_parentUID;
+        boost::optional<std::string>            m_parentUID;
 
-        boost::optional<CPACSTransformationRT> m_transformation;
+        boost::optional<CCPACSTransformationRT> m_transformation;
 
         /// UIDs of the structural mounts as defined in the fuselages or wings (see structuralMountType for further details).
-        boost::optional<CPACSUIDSequence>      m_structuralMountUIDs;
+        boost::optional<CPACSUIDSequence>       m_structuralMountUIDs;
 
     private:
         TIGL_EXPORT const CTiglUIDObject* GetNextUIDObject() const final;
@@ -132,7 +131,5 @@ namespace generated
     };
 } // namespace generated
 
-// Aliases in tigl namespace
-using CCPACSComponent = generated::CPACSComponent;
-using CCPACSComponents = generated::CPACSComponents;
+// CPACSComponent is customized, use type CCPACSComponent directly
 } // namespace tigl

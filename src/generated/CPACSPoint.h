@@ -30,6 +30,7 @@ namespace tigl
 {
 class CTiglUIDManager;
 class CCPACSTransformation;
+class CCPACSTransformationRT;
 
 namespace generated
 {
@@ -39,7 +40,6 @@ namespace generated
     class CPACSDeckElementMass;
     class CPACSElementMass;
     class CPACSPointList;
-    class CPACSTransformationRT;
 
     // This class is used in:
     // CPACSBoundingBox
@@ -65,7 +65,7 @@ namespace generated
         TIGL_EXPORT CPACSPoint(CPACSElementMass* parent, CTiglUIDManager* uidMgr);
         TIGL_EXPORT CPACSPoint(CPACSPointList* parent, CTiglUIDManager* uidMgr);
         TIGL_EXPORT CPACSPoint(CCPACSTransformation* parent, CTiglUIDManager* uidMgr);
-        TIGL_EXPORT CPACSPoint(CPACSTransformationRT* parent, CTiglUIDManager* uidMgr);
+        TIGL_EXPORT CPACSPoint(CCPACSTransformationRT* parent, CTiglUIDManager* uidMgr);
 
         TIGL_EXPORT virtual ~CPACSPoint();
 
@@ -78,7 +78,7 @@ namespace generated
         template<typename P>
         P* GetParent()
         {
-            static_assert(std::is_same<P, CPACSBoundingBox>::value || std::is_same<P, CPACSControlSurfaceHingePoint>::value || std::is_same<P, CPACSControlSurfaceStep>::value || std::is_same<P, CPACSDeckElementMass>::value || std::is_same<P, CPACSElementMass>::value || std::is_same<P, CPACSPointList>::value || std::is_same<P, CCPACSTransformation>::value || std::is_same<P, CPACSTransformationRT>::value, "template argument for P is not a parent class of CPACSPoint");
+            static_assert(std::is_same<P, CPACSBoundingBox>::value || std::is_same<P, CPACSControlSurfaceHingePoint>::value || std::is_same<P, CPACSControlSurfaceStep>::value || std::is_same<P, CPACSDeckElementMass>::value || std::is_same<P, CPACSElementMass>::value || std::is_same<P, CPACSPointList>::value || std::is_same<P, CCPACSTransformation>::value || std::is_same<P, CCPACSTransformationRT>::value, "template argument for P is not a parent class of CPACSPoint");
             if (!IsParent<P>()) {
                 throw CTiglError("bad parent");
             }
@@ -88,7 +88,7 @@ namespace generated
         template<typename P>
         const P* GetParent() const
         {
-            static_assert(std::is_same<P, CPACSBoundingBox>::value || std::is_same<P, CPACSControlSurfaceHingePoint>::value || std::is_same<P, CPACSControlSurfaceStep>::value || std::is_same<P, CPACSDeckElementMass>::value || std::is_same<P, CPACSElementMass>::value || std::is_same<P, CPACSPointList>::value || std::is_same<P, CCPACSTransformation>::value || std::is_same<P, CPACSTransformationRT>::value, "template argument for P is not a parent class of CPACSPoint");
+            static_assert(std::is_same<P, CPACSBoundingBox>::value || std::is_same<P, CPACSControlSurfaceHingePoint>::value || std::is_same<P, CPACSControlSurfaceStep>::value || std::is_same<P, CPACSDeckElementMass>::value || std::is_same<P, CPACSElementMass>::value || std::is_same<P, CPACSPointList>::value || std::is_same<P, CCPACSTransformation>::value || std::is_same<P, CCPACSTransformationRT>::value, "template argument for P is not a parent class of CPACSPoint");
             if (!IsParent<P>()) {
                 throw CTiglError("bad parent");
             }
@@ -151,5 +151,4 @@ using CCPACSControlSurfaceStep = generated::CPACSControlSurfaceStep;
 using CCPACSDeckElementMass = generated::CPACSDeckElementMass;
 using CCPACSElementMass = generated::CPACSElementMass;
 using CCPACSPointList = generated::CPACSPointList;
-using CCPACSTransformationRT = generated::CPACSTransformationRT;
 } // namespace tigl

@@ -32,6 +32,7 @@
 #include "tigl_config.h"
 #include "CTiglAbstractGeometricComponent.h"
 #include "CCPACSTransformation.h"
+#include "CCPACSTransformationRT.h"
 #include "CTiglTransformation.h"
 #include "CTiglPoint.h"
 #include "ECPACSTranslationType.h"
@@ -120,6 +121,7 @@ public:
 
     TIGL_EXPORT explicit CTiglRelativelyPositionedComponent(MaybeOptionalPtr<std::string> parentUid, MaybeOptionalPtr<CCPACSTransformation> trans);
     TIGL_EXPORT explicit CTiglRelativelyPositionedComponent(MaybeOptionalPtr<std::string> parentUid, MaybeOptionalPtr<CCPACSTransformation> trans, boost::optional<TiglSymmetryAxis>* symmetryAxis);
+    TIGL_EXPORT explicit CTiglRelativelyPositionedComponent(MaybeOptionalPtr<std::string> parentUid, MaybeOptionalPtr<CCPACSTransformationRT> trans);
 
     TIGL_EXPORT void Reset() const;
 
@@ -158,6 +160,7 @@ private:
     MaybeOptionalPtr<std::string> _parentUID; ///< UID of the parent of this component, if supported by derived type
 
     MaybeOptionalPtr<CCPACSTransformation> _transformation;            // references down to the transformation of the derived class (may be empty in case derived class does not have transformation)
+    MaybeOptionalPtr<CCPACSTransformationRT> _transformationRT;
     boost::optional<TiglSymmetryAxis>* _symmetryAxis;   // references down to the symmetryAxis of the derived class (may be empty in case derived class does not have symmetry)
 };
 

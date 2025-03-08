@@ -85,7 +85,7 @@ namespace generated
     {
         // read element electricMotors
         if (tixi::TixiCheckElement(tixiHandle, xpath + "/electricMotors")) {
-            m_electricMotors = boost::in_place(this, m_uidMgr);
+            m_electricMotors = boost::in_place(reinterpret_cast<CCPACSSystemElements*>(this), m_uidMgr);
             try {
                 m_electricMotors->ReadCPACS(tixiHandle, xpath + "/electricMotors");
             } catch(const std::exception& e) {
@@ -96,7 +96,7 @@ namespace generated
 
         // read element turboGenerators
         if (tixi::TixiCheckElement(tixiHandle, xpath + "/turboGenerators")) {
-            m_turboGenerators = boost::in_place(this, m_uidMgr);
+            m_turboGenerators = boost::in_place(reinterpret_cast<CCPACSSystemElements*>(this), m_uidMgr);
             try {
                 m_turboGenerators->ReadCPACS(tixiHandle, xpath + "/turboGenerators");
             } catch(const std::exception& e) {
@@ -107,7 +107,7 @@ namespace generated
 
         // read element heatExchangers
         if (tixi::TixiCheckElement(tixiHandle, xpath + "/heatExchangers")) {
-            m_heatExchangers = boost::in_place(this, m_uidMgr);
+            m_heatExchangers = boost::in_place(reinterpret_cast<CCPACSSystemElements*>(this), m_uidMgr);
             try {
                 m_heatExchangers->ReadCPACS(tixiHandle, xpath + "/heatExchangers");
             } catch(const std::exception& e) {
@@ -118,7 +118,7 @@ namespace generated
 
         // read element batteries
         if (tixi::TixiCheckElement(tixiHandle, xpath + "/batteries")) {
-            m_batteries = boost::in_place(this, m_uidMgr);
+            m_batteries = boost::in_place(reinterpret_cast<CCPACSSystemElements*>(this), m_uidMgr);
             try {
                 m_batteries->ReadCPACS(tixiHandle, xpath + "/batteries");
             } catch(const std::exception& e) {
@@ -129,7 +129,7 @@ namespace generated
 
         // read element gasTurbines
         if (tixi::TixiCheckElement(tixiHandle, xpath + "/gasTurbines")) {
-            m_gasTurbines = boost::in_place(this, m_uidMgr);
+            m_gasTurbines = boost::in_place(reinterpret_cast<CCPACSSystemElements*>(this), m_uidMgr);
             try {
                 m_gasTurbines->ReadCPACS(tixiHandle, xpath + "/gasTurbines");
             } catch(const std::exception& e) {
@@ -140,7 +140,7 @@ namespace generated
 
         // read element gearBoxes
         if (tixi::TixiCheckElement(tixiHandle, xpath + "/gearBoxes")) {
-            m_gearBoxes = boost::in_place(this, m_uidMgr);
+            m_gearBoxes = boost::in_place(reinterpret_cast<CCPACSSystemElements*>(this), m_uidMgr);
             try {
                 m_gearBoxes->ReadCPACS(tixiHandle, xpath + "/gearBoxes");
             } catch(const std::exception& e) {
@@ -151,7 +151,7 @@ namespace generated
 
         // read element generators
         if (tixi::TixiCheckElement(tixiHandle, xpath + "/generators")) {
-            m_generators = boost::in_place(this, m_uidMgr);
+            m_generators = boost::in_place(reinterpret_cast<CCPACSSystemElements*>(this), m_uidMgr);
             try {
                 m_generators->ReadCPACS(tixiHandle, xpath + "/generators");
             } catch(const std::exception& e) {
@@ -162,7 +162,7 @@ namespace generated
 
         // read element genericComponents
         if (tixi::TixiCheckElement(tixiHandle, xpath + "/genericComponents")) {
-            m_genericComponents = boost::in_place(this, m_uidMgr);
+            m_genericComponents = boost::in_place(reinterpret_cast<CCPACSSystemElements*>(this), m_uidMgr);
             try {
                 m_genericComponents->ReadCPACS(tixiHandle, xpath + "/genericComponents");
             } catch(const std::exception& e) {
@@ -348,7 +348,7 @@ namespace generated
     CPACSElectricMotors& CPACSSystemElements::GetElectricMotors(CreateIfNotExistsTag)
     {
         if (!m_electricMotors)
-            m_electricMotors = boost::in_place(this, m_uidMgr);
+            m_electricMotors = boost::in_place(reinterpret_cast<CCPACSSystemElements*>(this), m_uidMgr);
         return *m_electricMotors;
     }
 
@@ -360,7 +360,7 @@ namespace generated
     CPACSTurboGenerators& CPACSSystemElements::GetTurboGenerators(CreateIfNotExistsTag)
     {
         if (!m_turboGenerators)
-            m_turboGenerators = boost::in_place(this, m_uidMgr);
+            m_turboGenerators = boost::in_place(reinterpret_cast<CCPACSSystemElements*>(this), m_uidMgr);
         return *m_turboGenerators;
     }
 
@@ -372,7 +372,7 @@ namespace generated
     CPACSHeatExchangers& CPACSSystemElements::GetHeatExchangers(CreateIfNotExistsTag)
     {
         if (!m_heatExchangers)
-            m_heatExchangers = boost::in_place(this, m_uidMgr);
+            m_heatExchangers = boost::in_place(reinterpret_cast<CCPACSSystemElements*>(this), m_uidMgr);
         return *m_heatExchangers;
     }
 
@@ -384,7 +384,7 @@ namespace generated
     CPACSBatteries& CPACSSystemElements::GetBatteries(CreateIfNotExistsTag)
     {
         if (!m_batteries)
-            m_batteries = boost::in_place(this, m_uidMgr);
+            m_batteries = boost::in_place(reinterpret_cast<CCPACSSystemElements*>(this), m_uidMgr);
         return *m_batteries;
     }
 
@@ -396,7 +396,7 @@ namespace generated
     CPACSGasTurbines& CPACSSystemElements::GetGasTurbines(CreateIfNotExistsTag)
     {
         if (!m_gasTurbines)
-            m_gasTurbines = boost::in_place(this, m_uidMgr);
+            m_gasTurbines = boost::in_place(reinterpret_cast<CCPACSSystemElements*>(this), m_uidMgr);
         return *m_gasTurbines;
     }
 
@@ -408,7 +408,7 @@ namespace generated
     CPACSGearBoxes& CPACSSystemElements::GetGearBoxes(CreateIfNotExistsTag)
     {
         if (!m_gearBoxes)
-            m_gearBoxes = boost::in_place(this, m_uidMgr);
+            m_gearBoxes = boost::in_place(reinterpret_cast<CCPACSSystemElements*>(this), m_uidMgr);
         return *m_gearBoxes;
     }
 
@@ -420,7 +420,7 @@ namespace generated
     CPACSGenerators& CPACSSystemElements::GetGenerators(CreateIfNotExistsTag)
     {
         if (!m_generators)
-            m_generators = boost::in_place(this, m_uidMgr);
+            m_generators = boost::in_place(reinterpret_cast<CCPACSSystemElements*>(this), m_uidMgr);
         return *m_generators;
     }
 
@@ -432,7 +432,7 @@ namespace generated
     CPACSGenericComponents& CPACSSystemElements::GetGenericComponents(CreateIfNotExistsTag)
     {
         if (!m_genericComponents)
-            m_genericComponents = boost::in_place(this, m_uidMgr);
+            m_genericComponents = boost::in_place(reinterpret_cast<CCPACSSystemElements*>(this), m_uidMgr);
         return *m_genericComponents;
     }
 

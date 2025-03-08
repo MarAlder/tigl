@@ -17,9 +17,9 @@
 
 #include <cassert>
 #include "CCPACSTransformation.h"
+#include "CCPACSTransformationRT.h"
 #include "CPACSPointAbsRel.h"
 #include "CPACSStrutAssembly.h"
-#include "CPACSTransformationRT.h"
 #include "CTiglError.h"
 #include "CTiglLogging.h"
 #include "CTiglUIDManager.h"
@@ -45,12 +45,12 @@ namespace generated
         m_parentType = &typeid(CCPACSTransformation);
     }
 
-    CPACSPointAbsRel::CPACSPointAbsRel(CPACSTransformationRT* parent, CTiglUIDManager* uidMgr)
+    CPACSPointAbsRel::CPACSPointAbsRel(CCPACSTransformationRT* parent, CTiglUIDManager* uidMgr)
         : m_uidMgr(uidMgr)
     {
         //assert(parent != NULL);
         m_parent = parent;
-        m_parentType = &typeid(CPACSTransformationRT);
+        m_parentType = &typeid(CCPACSTransformationRT);
     }
 
     CPACSPointAbsRel::~CPACSPointAbsRel()
@@ -70,11 +70,11 @@ namespace generated
                 else
                     return GetParent<CCPACSTransformation>()->GetNextUIDParent();
             }
-            if (IsParent<CPACSTransformationRT>()) {
-                if (GetParent<CPACSTransformationRT>()->GetUID())
-                    return GetParent<CPACSTransformationRT>();
+            if (IsParent<CCPACSTransformationRT>()) {
+                if (GetParent<CCPACSTransformationRT>()->GetUID())
+                    return GetParent<CCPACSTransformationRT>();
                 else
-                    return GetParent<CPACSTransformationRT>()->GetNextUIDParent();
+                    return GetParent<CCPACSTransformationRT>()->GetNextUIDParent();
             }
         }
         return nullptr;
@@ -92,11 +92,11 @@ namespace generated
                 else
                     return GetParent<CCPACSTransformation>()->GetNextUIDParent();
             }
-            if (IsParent<CPACSTransformationRT>()) {
-                if (GetParent<CPACSTransformationRT>()->GetUID())
-                    return GetParent<CPACSTransformationRT>();
+            if (IsParent<CCPACSTransformationRT>()) {
+                if (GetParent<CCPACSTransformationRT>()->GetUID())
+                    return GetParent<CCPACSTransformationRT>();
                 else
-                    return GetParent<CPACSTransformationRT>()->GetNextUIDParent();
+                    return GetParent<CCPACSTransformationRT>()->GetNextUIDParent();
             }
         }
         return nullptr;

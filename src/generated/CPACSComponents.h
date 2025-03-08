@@ -27,12 +27,11 @@ namespace tigl
 {
 class CTiglUIDManager;
 class CTiglUIDObject;
+class CCPACSComponent;
 class CCPACSGenericSystem;
 
 namespace generated
 {
-    class CPACSComponent;
-
     // This class is used in:
     // CPACSGenericSystem
 
@@ -59,18 +58,18 @@ namespace generated
         TIGL_EXPORT virtual void ReadCPACS(const TixiDocumentHandle& tixiHandle, const std::string& xpath);
         TIGL_EXPORT virtual void WriteCPACS(const TixiDocumentHandle& tixiHandle, const std::string& xpath) const;
 
-        TIGL_EXPORT virtual const std::vector<std::unique_ptr<CPACSComponent>>& GetComponents() const;
-        TIGL_EXPORT virtual std::vector<std::unique_ptr<CPACSComponent>>& GetComponents();
+        TIGL_EXPORT virtual const std::vector<std::unique_ptr<CCPACSComponent>>& GetComponents() const;
+        TIGL_EXPORT virtual std::vector<std::unique_ptr<CCPACSComponent>>& GetComponents();
 
-        TIGL_EXPORT virtual CPACSComponent& AddComponent();
-        TIGL_EXPORT virtual void RemoveComponent(CPACSComponent& ref);
+        TIGL_EXPORT virtual CCPACSComponent& AddComponent();
+        TIGL_EXPORT virtual void RemoveComponent(CCPACSComponent& ref);
 
     protected:
         CCPACSGenericSystem* m_parent;
 
         CTiglUIDManager* m_uidMgr;
 
-        std::vector<std::unique_ptr<CPACSComponent>> m_components;
+        std::vector<std::unique_ptr<CCPACSComponent>> m_components;
 
     private:
         CPACSComponents(const CPACSComponents&) = delete;
@@ -81,7 +80,5 @@ namespace generated
     };
 } // namespace generated
 
-// Aliases in tigl namespace
-using CCPACSComponents = generated::CPACSComponents;
-using CCPACSComponent = generated::CPACSComponent;
+// CPACSComponents is customized, use type CCPACSComponents directly
 } // namespace tigl
