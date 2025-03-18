@@ -40,7 +40,7 @@ CTiglRelativelyPositionedComponent::CTiglRelativelyPositionedComponent(MaybeOpti
 CTiglRelativelyPositionedComponent::CTiglRelativelyPositionedComponent(MaybeOptionalPtr<std::string> parentUid, MaybeOptionalPtr<CCPACSTransformation> trans, boost::optional<TiglSymmetryAxis>* symmetryAxis)
     : _parent(NULL), _parentUID(parentUid), _transformation(trans), _symmetryAxis(symmetryAxis){}
 
-CTiglRelativelyPositionedComponent::CTiglRelativelyPositionedComponent(MaybeOptionalPtr<std::string> parentUid, MaybeOptionalPtr<CCPACSTransformationRT> trans)
+CTiglRelativelyPositionedComponent::CTiglRelativelyPositionedComponent(MaybeOptionalPtr<std::string> parentUid, MaybeOptionalPtr<CCPACSTransformationSE3> trans)
     : _parent(NULL), _parentUID(parentUid), _transformationRT(trans), _symmetryAxis(nullptr) {}
 
 void CTiglRelativelyPositionedComponent::Reset() const

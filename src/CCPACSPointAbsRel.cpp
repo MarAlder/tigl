@@ -28,7 +28,7 @@ CCPACSPointAbsRel::CCPACSPointAbsRel(CCPACSTransformation* parent, CTiglUIDManag
 {
 }
 
-CCPACSPointAbsRel::CCPACSPointAbsRel(CCPACSTransformationRT* parent, CTiglUIDManager* uidMgr)
+CCPACSPointAbsRel::CCPACSPointAbsRel(CCPACSTransformationSE3* parent, CTiglUIDManager* uidMgr)
     : generated::CPACSPointAbsRel(parent, uidMgr)
 {
 }

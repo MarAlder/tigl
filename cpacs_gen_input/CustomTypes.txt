@@ -22,7 +22,7 @@ CPACSPositionings                  CCPACSPositionings
 CPACSPoint                         CCPACSPoint
 CPACSPointAbsRel                   CCPACSPointAbsRel
 CPACSTransformation                CCPACSTransformation
-CPACSTransformationRT              CCPACSTransformationRT
+CPACSTransformationSE3             CCPACSTransformationSE3
 CPACSStringVectorBase              CCPACSStringVector
 CPACSPointListRelXYZVector         CCPACSPointListRelXYZVector
 CPACSPointListXYVector			   CCPACSPointListXYVector

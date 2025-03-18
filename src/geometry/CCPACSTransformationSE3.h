@@ -16,10 +16,10 @@
 * limitations under the License.
 */
 
-#ifndef CCPACSTRANSFORMATIONRT_H
-#define CCPACSTRANSFORMATIONRT_H
+#ifndef CCPACSTransformationSE3_H
+#define CCPACSTransformationSE3_H
 
-#include "generated/CPACSTransformationRT.h"
+#include "generated/CPACSTransformationSE3.h"
 
 #include "CTiglTransformation.h"
 #include "ECPACSTranslationType.h"
@@ -29,14 +29,14 @@ namespace tigl
 {
 
 
-class CCPACSTransformationRT : public generated::CPACSTransformationRT
+class CCPACSTransformationSE3 : public generated::CPACSTransformationSE3
 {
 public:
-    TIGL_EXPORT CCPACSTransformationRT(CCPACSComponent* parent, CTiglUIDManager* uidMgr);
+    TIGL_EXPORT CCPACSTransformationSE3(CCPACSComponent* parent, CTiglUIDManager* uidMgr);
 
 private:
 
 };
 
 } // namespace tigl
-#endif // CCPACSTRANSFORMATIONRT_H
+#endif // CCPACSTransformationSE3_H

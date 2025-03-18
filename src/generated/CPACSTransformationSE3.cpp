@@ -17,7 +17,7 @@
 
 #include <cassert>
 #include "CCPACSComponent.h"
-#include "CPACSTransformationRT.h"
+#include "CPACSTransformationSE3.h"
 #include "CTiglError.h"
 #include "CTiglLogging.h"
 #include "CTiglUIDManager.h"
@@ -27,39 +27,39 @@ namespace tigl
 {
 namespace generated
 {
-    CPACSTransformationRT::CPACSTransformationRT(CCPACSComponent* parent, CTiglUIDManager* uidMgr)
+    CPACSTransformationSE3::CPACSTransformationSE3(CCPACSComponent* parent, CTiglUIDManager* uidMgr)
         : m_uidMgr(uidMgr)
     {
         //assert(parent != NULL);
         m_parent = parent;
     }
 
-    CPACSTransformationRT::~CPACSTransformationRT()
+    CPACSTransformationSE3::~CPACSTransformationSE3()
     {
         if (m_uidMgr && m_uID) m_uidMgr->TryUnregisterObject(*m_uID);
     }
 
-    const CCPACSComponent* CPACSTransformationRT::GetParent() const
+    const CCPACSComponent* CPACSTransformationSE3::GetParent() const
     {
         return m_parent;
     }
 
-    CCPACSComponent* CPACSTransformationRT::GetParent()
+    CCPACSComponent* CPACSTransformationSE3::GetParent()
     {
         return m_parent;
     }
 
-    const CTiglUIDObject* CPACSTransformationRT::GetNextUIDParent() const
+    const CTiglUIDObject* CPACSTransformationSE3::GetNextUIDParent() const
     {
         return m_parent;
     }
 
-    CTiglUIDObject* CPACSTransformationRT::GetNextUIDParent()
+    CTiglUIDObject* CPACSTransformationSE3::GetNextUIDParent()
     {
         return m_parent;
     }
 
-    CTiglUIDManager& CPACSTransformationRT::GetUIDManager()
+    CTiglUIDManager& CPACSTransformationSE3::GetUIDManager()
     {
         if (!m_uidMgr) {
             throw CTiglError("UIDManager is null");
@@ -67,7 +67,7 @@ namespace generated
         return *m_uidMgr;
     }
 
-    const CTiglUIDManager& CPACSTransformationRT::GetUIDManager() const
+    const CTiglUIDManager& CPACSTransformationSE3::GetUIDManager() const
     {
         if (!m_uidMgr) {
             throw CTiglError("UIDManager is null");
@@ -75,7 +75,7 @@ namespace generated
         return *m_uidMgr;
     }
 
-    void CPACSTransformationRT::ReadCPACS(const TixiDocumentHandle& tixiHandle, const std::string& xpath)
+    void CPACSTransformationSE3::ReadCPACS(const TixiDocumentHandle& tixiHandle, const std::string& xpath)
     {
         // read attribute uID
         if (tixi::TixiCheckAttribute(tixiHandle, xpath, "uID")) {
@@ -87,7 +87,7 @@ namespace generated
 
         // read element rotation
         if (tixi::TixiCheckElement(tixiHandle, xpath + "/rotation")) {
-            m_rotation = boost::in_place(reinterpret_cast<CCPACSTransformationRT*>(this), m_uidMgr);
+            m_rotation = boost::in_place(reinterpret_cast<CCPACSTransformationSE3*>(this), m_uidMgr);
             try {
                 m_rotation->ReadCPACS(tixiHandle, xpath + "/rotation");
             } catch(const std::exception& e) {
@@ -98,7 +98,7 @@ namespace generated
 
         // read element translation
         if (tixi::TixiCheckElement(tixiHandle, xpath + "/translation")) {
-            m_translation = boost::in_place(reinterpret_cast<CCPACSTransformationRT*>(this), m_uidMgr);
+            m_translation = boost::in_place(reinterpret_cast<CCPACSTransformationSE3*>(this), m_uidMgr);
             try {
                 m_translation->ReadCPACS(tixiHandle, xpath + "/translation");
             } catch(const std::exception& e) {
@@ -110,7 +110,7 @@ namespace generated
         if (m_uidMgr && m_uID) m_uidMgr->RegisterObject(*m_uID, *this);
     }
 
-    void CPACSTransformationRT::WriteCPACS(const TixiDocumentHandle& tixiHandle, const std::string& xpath) const
+    void CPACSTransformationSE3::WriteCPACS(const TixiDocumentHandle& tixiHandle, const std::string& xpath) const
     {
         // write attribute uID
         if (m_uID) {
@@ -146,12 +146,12 @@ namespace generated
 
     }
 
-    const boost::optional<std::string>& CPACSTransformationRT::GetUID() const
+    const boost::optional<std::string>& CPACSTransformationSE3::GetUID() const
     {
         return m_uID;
     }
 
-    void CPACSTransformationRT::SetUID(const boost::optional<std::string>& value)
+    void CPACSTransformationSE3::SetUID(const boost::optional<std::string>& value)
     {
         if (m_uidMgr && value != m_uID) {
             if (!m_uID && value) {
@@ -167,46 +167,46 @@ namespace generated
         m_uID = value;
     }
 
-    const boost::optional<CCPACSPoint>& CPACSTransformationRT::GetRotation() const
+    const boost::optional<CCPACSPoint>& CPACSTransformationSE3::GetRotation() const
     {
         return m_rotation;
     }
 
-    boost::optional<CCPACSPoint>& CPACSTransformationRT::GetRotation()
+    boost::optional<CCPACSPoint>& CPACSTransformationSE3::GetRotation()
     {
         return m_rotation;
     }
 
-    const boost::optional<CCPACSPointAbsRel>& CPACSTransformationRT::GetTranslation() const
+    const boost::optional<CCPACSPointAbsRel>& CPACSTransformationSE3::GetTranslation() const
     {
         return m_translation;
     }
 
-    boost::optional<CCPACSPointAbsRel>& CPACSTransformationRT::GetTranslation()
+    boost::optional<CCPACSPointAbsRel>& CPACSTransformationSE3::GetTranslation()
     {
         return m_translation;
     }
 
-    CCPACSPoint& CPACSTransformationRT::GetRotation(CreateIfNotExistsTag)
+    CCPACSPoint& CPACSTransformationSE3::GetRotation(CreateIfNotExistsTag)
     {
         if (!m_rotation)
-            m_rotation = boost::in_place(reinterpret_cast<CCPACSTransformationRT*>(this), m_uidMgr);
+            m_rotation = boost::in_place(reinterpret_cast<CCPACSTransformationSE3*>(this), m_uidMgr);
         return *m_rotation;
     }
 
-    void CPACSTransformationRT::RemoveRotation()
+    void CPACSTransformationSE3::RemoveRotation()
     {
         m_rotation = boost::none;
     }
 
-    CCPACSPointAbsRel& CPACSTransformationRT::GetTranslation(CreateIfNotExistsTag)
+    CCPACSPointAbsRel& CPACSTransformationSE3::GetTranslation(CreateIfNotExistsTag)
     {
         if (!m_translation)
-            m_translation = boost::in_place(reinterpret_cast<CCPACSTransformationRT*>(this), m_uidMgr);
+            m_translation = boost::in_place(reinterpret_cast<CCPACSTransformationSE3*>(this), m_uidMgr);
         return *m_translation;
     }
 
-    void CPACSTransformationRT::RemoveTranslation()
+    void CPACSTransformationSE3::RemoveTranslation()
     {
         m_translation = boost::none;
     }

@@ -362,12 +362,12 @@ namespace generated
         m_parentUID = value;
     }
 
-    const boost::optional<CCPACSTransformationRT>& CPACSComponent::GetTransformation() const
+    const boost::optional<CCPACSTransformationSE3>& CPACSComponent::GetTransformation() const
     {
         return m_transformation;
     }
 
-    boost::optional<CCPACSTransformationRT>& CPACSComponent::GetTransformation()
+    boost::optional<CCPACSTransformationSE3>& CPACSComponent::GetTransformation()
     {
         return m_transformation;
     }
@@ -382,7 +382,7 @@ namespace generated
         return m_structuralMountUIDs;
     }
 
-    CCPACSTransformationRT& CPACSComponent::GetTransformation(CreateIfNotExistsTag)
+    CCPACSTransformationSE3& CPACSComponent::GetTransformation(CreateIfNotExistsTag)
     {
         if (!m_transformation)
             m_transformation = boost::in_place(reinterpret_cast<CCPACSComponent*>(this), m_uidMgr);

@@ -36745,7 +36745,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                         </xsd:element>
                     </xsd:choice>
                     <xsd:element name="parentUID" minOccurs="0" type="stringUIDBaseType"/>
-                    <xsd:element name="transformation" minOccurs="0" type="transformationRTType"/>
+                    <xsd:element name="transformation" minOccurs="0" type="transformationSE3Type"/>
                     <xsd:element name="structuralMountUIDs" minOccurs="0" type="uIDSequenceType">
                         <xsd:annotation>
                             <xsd:documentation>UIDs of the structural mounts as defined in the fuselages or wings (see structuralMountType for further details).</xsd:documentation>
@@ -36757,7 +36757,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
         </xsd:complexContent>
     </xsd:complexType>
 
-    <xsd:complexType name="transformationRTType">
+    <xsd:complexType name="transformationSE3Type">
         <xsd:annotation>
             <xsd:appinfo>
                 <sd:schemaDoc>

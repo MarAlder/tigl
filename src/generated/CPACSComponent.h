@@ -19,7 +19,7 @@
 
 #include <boost/optional.hpp>
 #include <boost/utility/in_place_factory.hpp>
-#include <CCPACSTransformationRT.h>
+#include <CCPACSTransformationSE3.h>
 #include <string>
 #include <tixi.h>
 #include "CPACSUIDSequence.h"
@@ -81,13 +81,13 @@ namespace generated
         TIGL_EXPORT virtual const boost::optional<std::string>& GetParentUID() const;
         TIGL_EXPORT virtual void SetParentUID(const boost::optional<std::string>& value);
 
-        TIGL_EXPORT virtual const boost::optional<CCPACSTransformationRT>& GetTransformation() const;
-        TIGL_EXPORT virtual boost::optional<CCPACSTransformationRT>& GetTransformation();
+        TIGL_EXPORT virtual const boost::optional<CCPACSTransformationSE3>& GetTransformation() const;
+        TIGL_EXPORT virtual boost::optional<CCPACSTransformationSE3>& GetTransformation();
 
         TIGL_EXPORT virtual const boost::optional<CPACSUIDSequence>& GetStructuralMountUIDs() const;
         TIGL_EXPORT virtual boost::optional<CPACSUIDSequence>& GetStructuralMountUIDs();
 
-        TIGL_EXPORT virtual CCPACSTransformationRT& GetTransformation(CreateIfNotExistsTag);
+        TIGL_EXPORT virtual CCPACSTransformationSE3& GetTransformation(CreateIfNotExistsTag);
         TIGL_EXPORT virtual void RemoveTransformation();
 
         TIGL_EXPORT virtual CPACSUIDSequence& GetStructuralMountUIDs(CreateIfNotExistsTag);
@@ -98,26 +98,26 @@ namespace generated
 
         CTiglUIDManager* m_uidMgr;
 
-        std::string                             m_uID;
+        std::string                              m_uID;
 
         /// Name
-        std::string                             m_name;
+        std::string                              m_name;
 
         /// Description
-        boost::optional<std::string>            m_description;
+        boost::optional<std::string>             m_description;
 
         /// Link to pre-defined system element uID
-        boost::optional<std::string>            m_systemElementUID_choice1;
+        boost::optional<std::string>             m_systemElementUID_choice1;
 
         /// Link to pre-defined system element uID
-        boost::optional<std::string>            m_rotorElementUID_choice2;
+        boost::optional<std::string>             m_rotorElementUID_choice2;
 
-        boost::optional<std::string>            m_parentUID;
+        boost::optional<std::string>             m_parentUID;
 
-        boost::optional<CCPACSTransformationRT> m_transformation;
+        boost::optional<CCPACSTransformationSE3> m_transformation;
 
         /// UIDs of the structural mounts as defined in the fuselages or wings (see structuralMountType for further details).
-        boost::optional<CPACSUIDSequence>       m_structuralMountUIDs;
+        boost::optional<CPACSUIDSequence>        m_structuralMountUIDs;
 
     private:
         TIGL_EXPORT const CTiglUIDObject* GetNextUIDObject() const final;

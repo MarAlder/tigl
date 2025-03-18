@@ -45,12 +45,12 @@ namespace generated
     /// order. Any of them can be omitted; it will be replaced by its
     /// defaults.
     /// 
-    class CPACSTransformationRT : public CTiglOptUIDObject
+    class CPACSTransformationSE3 : public CTiglOptUIDObject
     {
     public:
-        TIGL_EXPORT CPACSTransformationRT(CCPACSComponent* parent, CTiglUIDManager* uidMgr);
+        TIGL_EXPORT CPACSTransformationSE3(CCPACSComponent* parent, CTiglUIDManager* uidMgr);
 
-        TIGL_EXPORT virtual ~CPACSTransformationRT();
+        TIGL_EXPORT virtual ~CPACSTransformationSE3();
 
         TIGL_EXPORT CCPACSComponent* GetParent();
 
@@ -101,13 +101,13 @@ namespace generated
         boost::optional<CCPACSPointAbsRel> m_translation;
 
     private:
-        CPACSTransformationRT(const CPACSTransformationRT&) = delete;
-        CPACSTransformationRT& operator=(const CPACSTransformationRT&) = delete;
+        CPACSTransformationSE3(const CPACSTransformationSE3&) = delete;
+        CPACSTransformationSE3& operator=(const CPACSTransformationSE3&) = delete;
 
-        CPACSTransformationRT(CPACSTransformationRT&&) = delete;
-        CPACSTransformationRT& operator=(CPACSTransformationRT&&) = delete;
+        CPACSTransformationSE3(CPACSTransformationSE3&&) = delete;
+        CPACSTransformationSE3& operator=(CPACSTransformationSE3&&) = delete;
     };
 } // namespace generated
 
-// CPACSTransformationRT is customized, use type CCPACSTransformationRT directly
+// CPACSTransformationSE3 is customized, use type CCPACSTransformationSE3 directly
 } // namespace tigl

@@ -30,7 +30,7 @@ public:
     TIGL_EXPORT CCPACSPoint(CCPACSBoundingBox* parent, CTiglUIDManager* uidMgr);
     TIGL_EXPORT CCPACSPoint(CCPACSDeckElementMass* parent, CTiglUIDManager* uidMgr);
     TIGL_EXPORT CCPACSPoint(CCPACSTransformation* parent, CTiglUIDManager* uidMgr);
-    TIGL_EXPORT CCPACSPoint(CCPACSTransformationRT* parent, CTiglUIDManager* uidMgr);
+    TIGL_EXPORT CCPACSPoint(CCPACSTransformationSE3* parent, CTiglUIDManager* uidMgr);
     TIGL_EXPORT CCPACSPoint(CCPACSElementMass* parent, CTiglUIDManager* uidMgr);
 
     TIGL_EXPORT CCPACSPoint(const CCPACSPoint& p);

@@ -16,15 +16,15 @@
 * limitations under the License.
 */
 
-#include "CCPACSTransformationRT.h"
+#include "CCPACSTransformationSE3.h"
 #include "tiglcommonfunctions.h"
 #include "CTiglError.h"
 
 namespace tigl
 {
 
-    CCPACSTransformationRT::CCPACSTransformationRT(CCPACSComponent* parent, CTiglUIDManager* uidMgr)
-    : generated::CPACSTransformationRT(parent, uidMgr)
+    CCPACSTransformationSE3::CCPACSTransformationSE3(CCPACSComponent* parent, CTiglUIDManager* uidMgr)
+    : generated::CPACSTransformationSE3(parent, uidMgr)
     // , _transformationMatrix(*this, &CCPACSTransformation::updateMatrix)
 {
 }
