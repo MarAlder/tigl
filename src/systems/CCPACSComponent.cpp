@@ -37,23 +37,19 @@ std::string CCPACSComponent::GetDefaultedUID() const
 
 PNamedShape CCPACSComponent::BuildLoft() const
 {
-    // // ToDo: Implement lofting logic or return a default shape
-    // auto systemElementUID             = m_systemElementUID_choice1.get();
-    // std::cout << "Is UID registered: " << m_uidMgr->IsUIDRegistered("predefinedElectricMotor") << std::endl;
-    // // CCPACSVehicleElementBase& element = m_uidMgr->ResolveObject<
+    auto systemElementUID = m_systemElementUID_choice1.get();
 
-    // try {
-    //     CCPACSVehicleElementBase& element = m_uidMgr->ResolveObject<CCPACSVehicleElementBase>(systemElementUID);
-    //     auto transform                    = this->GetTransformationMatrix();
-    //     CTiglVehicleElementBuilder builder(element, transform);
-    //     return builder.BuildShape();
-    // }
-    // catch (...) {
-    //     throw(CTiglError("CCPACSComponent: Unable to build shape for the system component with UID " +
-    //                          systemElementUID + ".",
-    //                      TIGL_ERROR));
-    // }
-    return PNamedShape();
+    try {
+        CCPACSVehicleElementBase& element = m_uidMgr->ResolveObject<CCPACSVehicleElementBase>(systemElementUID);
+        auto transform                    = this->GetTransformationMatrix();
+        CTiglVehicleElementBuilder builder(element, transform);
+        return builder.BuildShape();
+    }
+    catch (...) {
+        throw(CTiglError("CCPACSComponent: Unable to build shape for the system component with UID " +
+                             systemElementUID + ".",
+                         TIGL_ERROR));
+    }
 }
 
 } //namespace tigl

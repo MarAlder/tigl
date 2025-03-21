@@ -43,9 +43,12 @@ PNamedShape CTiglVehicleElementBuilder::BuildShape()
     BRepPrimAPI_MakeSphere sph(0.1);
     elementShape = sph.Shape();
 
-    // sysShape = GetTransformationMatrix().Transform(sysShape);
     std::string loftName = m_vehicleElement.GetUID().c_str();
     PNamedShape loft(new CNamedShape(elementShape, loftName));
+
+    if (m_transformation) {
+        loft = m_transformation->Transform(loft);
+    }
 
     return loft;
 };

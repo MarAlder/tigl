@@ -41,13 +41,15 @@ CTiglRelativelyPositionedComponent::CTiglRelativelyPositionedComponent(MaybeOpti
     : _parent(NULL), _parentUID(parentUid), _transformation(trans), _symmetryAxis(symmetryAxis){}
 
 CTiglRelativelyPositionedComponent::CTiglRelativelyPositionedComponent(MaybeOptionalPtr<std::string> parentUid, MaybeOptionalPtr<CCPACSTransformationSE3> trans)
-    : _parent(NULL), _parentUID(parentUid), _transformationRT(trans), _symmetryAxis(nullptr) {}
+    : _parent(NULL), _parentUID(parentUid), _transformationSE3(trans), _symmetryAxis(nullptr) {}
 
 void CTiglRelativelyPositionedComponent::Reset() const
 {
     CTiglAbstractGeometricComponent::Reset();
     if (GetTransform())
         const_cast<CCPACSTransformation&>(*GetTransform()).reset();
+    else if (GetTransformSE3())
+        const_cast<CCPACSTransformationSE3&>(*GetTransformSE3()).reset();
 }
 
 TiglSymmetryAxis CTiglRelativelyPositionedComponent::GetSymmetryAxis() const
@@ -70,7 +72,14 @@ void CTiglRelativelyPositionedComponent::SetSymmetryAxis(const TiglSymmetryAxis&
 
 CTiglTransformation CTiglRelativelyPositionedComponent::GetTransformationMatrix() const
 {
-    const CTiglTransformation thisTransformation = GetTransform() ? GetTransform()->getTransformationMatrix() : CTiglTransformation();
+    // const CTiglTransformation thisTransformation = GetTransform() ? GetTransform()->getTransformationMatrix() : CTiglTransformation();
+    CTiglTransformation thisTransformation;
+    if (GetTransform()) {
+        thisTransformation = GetTransform()->getTransformationMatrix();
+    }
+    else if (GetTransformSE3()) {
+        thisTransformation = GetTransformSE3()->getTransformationMatrix();
+    }
     if (_parent && GetTranslationType() == ABS_LOCAL) {
         const CTiglTransformation& parentTransformation = _parent->GetTransformationMatrix();
 
@@ -104,6 +113,8 @@ CTiglPoint CTiglRelativelyPositionedComponent::GetRotation() const
 {
     if (GetTransform())
         return GetTransform()->getRotation();
+    else if (GetTransformSE3())
+        return GetTransformSE3()->getRotation();
     else
         return CTiglPoint(0, 0, 0);
 }
@@ -120,6 +131,8 @@ CTiglPoint CTiglRelativelyPositionedComponent::GetTranslation() const
 {
     if (GetTransform())
         return GetTransform()->getTranslationVector();
+    else if (GetTransformSE3())
+        return GetTransformSE3()->getTranslationVector();
     else
         return CTiglPoint(0, 0, 0);
 }
@@ -128,6 +141,8 @@ ECPACSTranslationType CTiglRelativelyPositionedComponent::GetTranslationType() c
 {
     if (GetTransform())
         return GetTransform()->getTranslationType();
+    else if (GetTransformSE3())
+        return GetTransformSE3()->getTranslationType();
     else
         if (_parent) {
             return ABS_LOCAL;
@@ -162,6 +177,12 @@ boost::optional<const std::string&> CTiglRelativelyPositionedComponent::GetParen
 boost::optional<const CCPACSTransformation&> CTiglRelativelyPositionedComponent::GetTransform() const
 {
     return _transformation.Get();
+}
+
+// Returns the SE3 transformation
+boost::optional<const CCPACSTransformationSE3&> CTiglRelativelyPositionedComponent::GetTransformSE3() const
+{
+    return _transformationSE3.Get();
 }
 
 // Sets the parent uid.

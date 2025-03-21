@@ -95,10 +95,11 @@ void CheckExceptionMessage(std::function<void()> func, const char* expectedMessa
 
 TEST_F(Systems, temp)
 {
-    EXPECT_EQ(1., 1.);
-    // genericSystem->GetComponents()
-    // auto& name = component->GetName();
-    // EXPECT_EQ(name, "Component 1 of System 1");
+    genericSystem->GetComponents();
+    auto& name = component->GetName();
+    EXPECT_EQ(name, "Component 1 of System 1");
 
-    // auto& loft = component->GetLoft();
+    auto& loft = component->GetLoft();
+
+    EXPECT_EQ(1., 1.);
 }

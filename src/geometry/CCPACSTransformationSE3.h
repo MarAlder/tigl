@@ -28,14 +28,39 @@
 namespace tigl
 {
 
-
 class CCPACSTransformationSE3 : public generated::CPACSTransformationSE3
 {
 public:
     TIGL_EXPORT CCPACSTransformationSE3(CCPACSComponent* parent, CTiglUIDManager* uidMgr);
 
-private:
+    TIGL_EXPORT void reset();
 
+    TIGL_EXPORT CCPACSTransformationSE3& operator=(const CCPACSTransformationSE3& trafo);
+
+    TIGL_EXPORT void setTranslation(const CTiglPoint& translation);
+    TIGL_EXPORT void setTranslation(const CTiglPoint& translation, ECPACSTranslationType);
+    TIGL_EXPORT void setRotation(const CTiglPoint& rotation);
+    TIGL_EXPORT void setTransformationMatrix(const CTiglTransformation& matrix);
+
+    TIGL_EXPORT CTiglPoint getTranslationVector() const;
+    TIGL_EXPORT CTiglPoint getRotation() const;
+    TIGL_EXPORT ECPACSTranslationType getTranslationType() const;
+    TIGL_EXPORT CTiglTransformation getTransformationMatrix() const;
+
+    /**
+    * Reads in the transformation from a cpacs path
+    * @param tixiHandle Handle to the xml document
+    * @param transformationXPath XPath to the parent object
+    */
+    TIGL_EXPORT void ReadCPACS(const TixiDocumentHandle& tixiHandle, const std::string& transformationXPath) override;
+
+private:
+    void InvalidateImpl(const boost::optional<std::string>& source) const override;
+
+    void updateMatrix(CTiglTransformation& cache) const;
+
+    // caches the transformation created from scaling, rotation and translation
+    Cache<CTiglTransformation, CCPACSTransformationSE3> _transformationMatrix;
 };
 
 } // namespace tigl
