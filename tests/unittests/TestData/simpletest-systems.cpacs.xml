@@ -247,6 +247,30 @@
                                         </translation>
                                     </transformation>
                                 </component>
+                                <component uID="genSys1Comp3">
+                                    <name>Component 3 of System 1</name>
+                                    <systemElementUID>genComp2</systemElementUID>
+                                    <parentUID>SimpleFuselage</parentUID>
+                                    <transformation>
+                                        <translation>
+                                            <x>3.</x>
+                                            <y>0</y>
+                                            <z>0</z>
+                                        </translation>
+                                    </transformation>
+                                </component>
+                                <component uID="genSys1Comp4">
+                                    <name>Component 4 of System 1</name>
+                                    <systemElementUID>genComp3</systemElementUID>
+                                    <parentUID>SimpleFuselage</parentUID>
+                                    <transformation>
+                                        <translation>
+                                            <x>5.</x>
+                                            <y>0</y>
+                                            <z>0</z>
+                                        </translation>
+                                    </transformation>
+                                </component>
                             </components>
                         </genericSystem>
                     </genericSystems>
@@ -278,6 +302,23 @@
                             <beta>80.</beta>
                             <gamma>80.</gamma>
                         </parallelepiped>
+                    </geometry>
+                </genericComponent>
+                <genericComponent uID="genComp2">
+                    <name>Generic Component 2</name>
+                    <geometry>
+                        <frustum>
+                            <height>1.</height>
+                            <lowerRadiusX>0.5</lowerRadiusX>
+                        </frustum>
+                    </geometry>
+                </genericComponent>
+                <genericComponent uID="genComp3">
+                    <name>Generic Component 3</name>
+                    <geometry>
+                        <ellipsoid>
+                            <radiusX>1.</radiusX>
+                        </ellipsoid>
                     </geometry>
                 </genericComponent>
             </genericComponents>
