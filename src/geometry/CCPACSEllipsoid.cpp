@@ -28,4 +28,14 @@ CCPACSEllipsoid::CCPACSEllipsoid(CCPACSElementGeometry* parent)
 {
 }
 
+double CCPACSEllipsoid::getRadiusY() const
+{
+    return m_radiusY.get_value_or(GetRadiusX());
+}
+
+double CCPACSEllipsoid::getRadiusZ() const
+{
+    return m_radiusZ.get_value_or(GetRadiusX());
+}
+
 } // namespace tigl

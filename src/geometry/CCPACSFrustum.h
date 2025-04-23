@@ -29,9 +29,14 @@ class CCPACSFrustum : public generated::CPACSFrustum
 public:
     TIGL_EXPORT CCPACSFrustum(CCPACSElementGeometry* parent);
 
-    
+    /**
+     * @brief Returns either value from CPACS or default.
+     */
+    TIGL_EXPORT double getLowerRadiusY() const;
+    TIGL_EXPORT double getUpperRadiusX() const;
+    TIGL_EXPORT double getUpperRadiusY() const;
+
 private:
-    
 };
 
 } // namespace tigl

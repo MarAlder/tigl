@@ -36532,7 +36532,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
         </xsd:annotation>
         <xsd:complexContent>
             <xsd:extension base="complexBaseType">
-                <xsd:sequence>
+                <xsd:all>
                     <xsd:element name="a" type="doubleBaseType">
                         <xsd:annotation>
                             <xsd:documentation>Length of edge a (if cuboid, then a equals the total length in x-direction) [m]</xsd:documentation>
@@ -36548,24 +36548,22 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                             <xsd:documentation>Length of edge c (if cuboid, then c equals the total height in z-direction) [m]</xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
-                    <xsd:sequence minOccurs="0">
-                        <xsd:element name="alpha" type="doubleBaseType">
-                            <xsd:annotation>
-                                <xsd:documentation>Angle between edges in width and height direction (default: 90deg) [deg]</xsd:documentation>
-                            </xsd:annotation>
-                        </xsd:element>
-                        <xsd:element name="beta" type="doubleBaseType">
-                            <xsd:annotation>
-                                <xsd:documentation>Angle between edges in length and height direction (default: 90deg) [deg]</xsd:documentation>
-                            </xsd:annotation>
-                        </xsd:element>
-                        <xsd:element name="gamma" type="doubleBaseType">
-                            <xsd:annotation>
-                                <xsd:documentation>Angle between edges in length and width direction (default: 90deg) [deg]</xsd:documentation>
-                            </xsd:annotation>
-                        </xsd:element>
-                    </xsd:sequence>
-                </xsd:sequence>
+					<xsd:element name="alpha" minOccurs="0" type="doubleBaseType">
+						<xsd:annotation>
+							<xsd:documentation>Angle between edges in width and height direction (default: 90deg) [deg]</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="beta" minOccurs="0" type="doubleBaseType">
+						<xsd:annotation>
+							<xsd:documentation>Angle between edges in length and height direction (default: 90deg) [deg]</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="gamma" minOccurs="0" type="doubleBaseType">
+						<xsd:annotation>
+							<xsd:documentation>Angle between edges in length and width direction (default: 90deg) [deg]</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+                </xsd:all>
             </xsd:extension>
         </xsd:complexContent>
     </xsd:complexType>
@@ -36613,7 +36611,7 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
                     </xsd:element>
                     <xsd:element name="upperRadiusY" minOccurs="0" type="doubleBaseType">
                         <xsd:annotation>
-                            <xsd:documentation>Upper radius in local y-direction [m] (if not defined: equals lowerRadiusX)</xsd:documentation>
+                            <xsd:documentation>Upper radius in local y-direction [m] (if not defined: equals upperRadiusX)</xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
                 </xsd:all>

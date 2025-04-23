@@ -31,9 +31,6 @@ namespace generated
         : m_a(0)
         , m_b(0)
         , m_c(0)
-        , m_alpha(0)
-        , m_beta(0)
-        , m_gamma(0)
     {
         //assert(parent != NULL);
         m_parent = parent;
@@ -99,55 +96,65 @@ namespace generated
         if (tixi::TixiCheckElement(tixiHandle, xpath + "/alpha")) {
             m_alpha = tixi::TixiGetElement<double>(tixiHandle, xpath + "/alpha");
         }
-        else {
-            LOG(ERROR) << "Required element alpha is missing at xpath " << xpath;
-        }
 
         // read element beta
         if (tixi::TixiCheckElement(tixiHandle, xpath + "/beta")) {
             m_beta = tixi::TixiGetElement<double>(tixiHandle, xpath + "/beta");
-        }
-        else {
-            LOG(ERROR) << "Required element beta is missing at xpath " << xpath;
         }
 
         // read element gamma
         if (tixi::TixiCheckElement(tixiHandle, xpath + "/gamma")) {
             m_gamma = tixi::TixiGetElement<double>(tixiHandle, xpath + "/gamma");
         }
-        else {
-            LOG(ERROR) << "Required element gamma is missing at xpath " << xpath;
-        }
 
     }
 
     void CPACSParallelepiped::WriteCPACS(const TixiDocumentHandle& tixiHandle, const std::string& xpath) const
     {
-        const std::vector<std::string> childElemOrder = { "a", "b", "c", "alpha", "beta", "gamma" };
-
         // write element a
-        tixi::TixiCreateSequenceElementIfNotExists(tixiHandle, xpath + "/a", childElemOrder);
+        tixi::TixiCreateElementIfNotExists(tixiHandle, xpath + "/a");
         tixi::TixiSaveElement(tixiHandle, xpath + "/a", m_a);
 
         // write element b
-        tixi::TixiCreateSequenceElementIfNotExists(tixiHandle, xpath + "/b", childElemOrder);
+        tixi::TixiCreateElementIfNotExists(tixiHandle, xpath + "/b");
         tixi::TixiSaveElement(tixiHandle, xpath + "/b", m_b);
 
         // write element c
-        tixi::TixiCreateSequenceElementIfNotExists(tixiHandle, xpath + "/c", childElemOrder);
+        tixi::TixiCreateElementIfNotExists(tixiHandle, xpath + "/c");
         tixi::TixiSaveElement(tixiHandle, xpath + "/c", m_c);
 
         // write element alpha
-        tixi::TixiCreateSequenceElementIfNotExists(tixiHandle, xpath + "/alpha", childElemOrder);
-        tixi::TixiSaveElement(tixiHandle, xpath + "/alpha", m_alpha);
+        if (m_alpha) {
+            tixi::TixiCreateElementIfNotExists(tixiHandle, xpath + "/alpha");
+            tixi::TixiSaveElement(tixiHandle, xpath + "/alpha", *m_alpha);
+        }
+        else {
+            if (tixi::TixiCheckElement(tixiHandle, xpath + "/alpha")) {
+                tixi::TixiRemoveElement(tixiHandle, xpath + "/alpha");
+            }
+        }
 
         // write element beta
-        tixi::TixiCreateSequenceElementIfNotExists(tixiHandle, xpath + "/beta", childElemOrder);
-        tixi::TixiSaveElement(tixiHandle, xpath + "/beta", m_beta);
+        if (m_beta) {
+            tixi::TixiCreateElementIfNotExists(tixiHandle, xpath + "/beta");
+            tixi::TixiSaveElement(tixiHandle, xpath + "/beta", *m_beta);
+        }
+        else {
+            if (tixi::TixiCheckElement(tixiHandle, xpath + "/beta")) {
+                tixi::TixiRemoveElement(tixiHandle, xpath + "/beta");
+            }
+        }
 
         // write element gamma
-        tixi::TixiCreateSequenceElementIfNotExists(tixiHandle, xpath + "/gamma", childElemOrder);
-        tixi::TixiSaveElement(tixiHandle, xpath + "/gamma", m_gamma);
+        if (m_gamma) {
+            tixi::TixiCreateElementIfNotExists(tixiHandle, xpath + "/gamma");
+            tixi::TixiSaveElement(tixiHandle, xpath + "/gamma", *m_gamma);
+        }
+        else {
+            if (tixi::TixiCheckElement(tixiHandle, xpath + "/gamma")) {
+                tixi::TixiRemoveElement(tixiHandle, xpath + "/gamma");
+            }
+        }
 
     }
 
@@ -181,32 +188,32 @@ namespace generated
         m_c = value;
     }
 
-    const double& CPACSParallelepiped::GetAlpha() const
+    const boost::optional<double>& CPACSParallelepiped::GetAlpha() const
     {
         return m_alpha;
     }
 
-    void CPACSParallelepiped::SetAlpha(const double& value)
+    void CPACSParallelepiped::SetAlpha(const boost::optional<double>& value)
     {
         m_alpha = value;
     }
 
-    const double& CPACSParallelepiped::GetBeta() const
+    const boost::optional<double>& CPACSParallelepiped::GetBeta() const
     {
         return m_beta;
     }
 
-    void CPACSParallelepiped::SetBeta(const double& value)
+    void CPACSParallelepiped::SetBeta(const boost::optional<double>& value)
     {
         m_beta = value;
     }
 
-    const double& CPACSParallelepiped::GetGamma() const
+    const boost::optional<double>& CPACSParallelepiped::GetGamma() const
     {
         return m_gamma;
     }
 
-    void CPACSParallelepiped::SetGamma(const double& value)
+    void CPACSParallelepiped::SetGamma(const boost::optional<double>& value)
     {
         m_gamma = value;
     }

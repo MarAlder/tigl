@@ -70,8 +70,10 @@ protected:
     tigl::CTiglUIDManager& uidMgr =
         tigl::CCPACSConfigurationManager::GetInstance().GetConfiguration(Systems::tiglHandle).GetUIDManager();
 
-    tigl::CCPACSGenericSystem const* genericSystem = &uidMgr.ResolveObject<tigl::CCPACSGenericSystem>("genSys1");
-    tigl::CCPACSComponent const* component         = &uidMgr.ResolveObject<tigl::CCPACSComponent>("genSys1Comp1");
+    tigl::CCPACSGenericSystem const* genericSystem       = &uidMgr.ResolveObject<tigl::CCPACSGenericSystem>("genSys1");
+    tigl::CCPACSComponent const* parallelepiped_fuselage = &uidMgr.ResolveObject<tigl::CCPACSComponent>("genSys1Comp1");
+    tigl::CCPACSComponent const* frustum                 = &uidMgr.ResolveObject<tigl::CCPACSComponent>("genSys1Comp3");
+    tigl::CCPACSComponent const* ellipsoid               = &uidMgr.ResolveObject<tigl::CCPACSComponent>("genSys1Comp4");
 
     // std::cout << "Is UID registered: " << uidMgr->IsUIDRegistered("predefinedElectricMotor") << std::endl;
 };
@@ -96,10 +98,12 @@ void CheckExceptionMessage(std::function<void()> func, const char* expectedMessa
 TEST_F(Systems, temp)
 {
     genericSystem->GetComponents();
-    auto& name = component->GetName();
+    auto& name = parallelepiped_fuselage->GetName();
     EXPECT_EQ(name, "Component 1 of System 1");
 
-    auto& loft = component->GetLoft();
+    auto& parallelepiped_fuselage_loft = parallelepiped_fuselage->GetLoft();
+    auto& frustum_loft                 = frustum->GetLoft();
+    auto& ellipsoid_loft               = ellipsoid->GetLoft();
 
     EXPECT_EQ(1., 1.);
 }

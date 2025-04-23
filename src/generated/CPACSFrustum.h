@@ -88,7 +88,7 @@ namespace generated
         /// Upper radius in local x-direction [m] (if not defined: equals lowerRadiusX)
         boost::optional<double> m_upperRadiusX;
 
-        /// Upper radius in local y-direction [m] (if not defined: equals lowerRadiusX)
+        /// Upper radius in local y-direction [m] (if not defined: equals upperRadiusX)
         boost::optional<double> m_upperRadiusY;
 
     private:

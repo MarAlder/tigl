@@ -17,6 +17,8 @@
 
 #pragma once
 
+#include <boost/optional.hpp>
+#include <boost/utility/in_place_factory.hpp>
 #include <string>
 #include <tixi.h>
 #include "tigl_internal.h"
@@ -63,35 +65,35 @@ namespace generated
         TIGL_EXPORT virtual const double& GetC() const;
         TIGL_EXPORT virtual void SetC(const double& value);
 
-        TIGL_EXPORT virtual const double& GetAlpha() const;
-        TIGL_EXPORT virtual void SetAlpha(const double& value);
+        TIGL_EXPORT virtual const boost::optional<double>& GetAlpha() const;
+        TIGL_EXPORT virtual void SetAlpha(const boost::optional<double>& value);
 
-        TIGL_EXPORT virtual const double& GetBeta() const;
-        TIGL_EXPORT virtual void SetBeta(const double& value);
+        TIGL_EXPORT virtual const boost::optional<double>& GetBeta() const;
+        TIGL_EXPORT virtual void SetBeta(const boost::optional<double>& value);
 
-        TIGL_EXPORT virtual const double& GetGamma() const;
-        TIGL_EXPORT virtual void SetGamma(const double& value);
+        TIGL_EXPORT virtual const boost::optional<double>& GetGamma() const;
+        TIGL_EXPORT virtual void SetGamma(const boost::optional<double>& value);
 
     protected:
         CPACSElementGeometry* m_parent;
 
         /// Length of edge a (if cuboid, then a equals the total length in x-direction) [m]
-        double m_a;
+        double                  m_a;
 
         /// Length of edge b (if cuboid, then b equals the total width in y-direction) [m]
-        double m_b;
+        double                  m_b;
 
         /// Length of edge c (if cuboid, then c equals the total height in z-direction) [m]
-        double m_c;
+        double                  m_c;
 
         /// Angle between edges in width and height direction (default: 90deg) [deg]
-        double m_alpha;
+        boost::optional<double> m_alpha;
 
         /// Angle between edges in length and height direction (default: 90deg) [deg]
-        double m_beta;
+        boost::optional<double> m_beta;
 
         /// Angle between edges in length and width direction (default: 90deg) [deg]
-        double m_gamma;
+        boost::optional<double> m_gamma;
 
     private:
         CPACSParallelepiped(const CPACSParallelepiped&) = delete;

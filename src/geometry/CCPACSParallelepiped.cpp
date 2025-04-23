@@ -25,10 +25,25 @@ namespace tigl
 
 CCPACSParallelepiped::CCPACSParallelepiped(CCPACSElementGeometry* parent)
     : generated::CPACSParallelepiped(parent)
+    , _default_alpha(90.0)
+    , _default_beta(90.0)
+    , _default_gamma(90.0)
 {
-    SetAlpha(90.);
-    SetBeta(90.);
-    SetGamma(90.);
+}
+
+double CCPACSParallelepiped::getAlpha() const
+{
+    return m_alpha.get_value_or(_default_alpha);
+}
+
+double CCPACSParallelepiped::getBeta() const
+{
+    return m_beta.get_value_or(_default_alpha);
+}
+
+double CCPACSParallelepiped::getGamma() const
+{
+    return m_gamma.get_value_or(_default_gamma);
 }
 
 } // namespace tigl

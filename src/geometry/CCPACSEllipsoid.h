@@ -29,6 +29,12 @@ class CCPACSEllipsoid : public generated::CPACSEllipsoid
 public:
     TIGL_EXPORT CCPACSEllipsoid(CCPACSElementGeometry* parent);
 
+    /**
+     * @brief Returns either value from CPACS or default.
+     */
+    TIGL_EXPORT double getRadiusY() const;
+    TIGL_EXPORT double getRadiusZ() const;
+
 private:
 };
 

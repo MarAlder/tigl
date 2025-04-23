@@ -28,6 +28,7 @@
 #include <BRepPrimAPI_MakeCylinder.hxx>
 #include <BRepPrimAPI_MakeSphere.hxx>
 #include <BRepBuilderAPI_Transform.hxx>
+#include <BRepBuilderAPI_GTransform.hxx>
 
 namespace tigl
 {
@@ -74,9 +75,9 @@ TopoDS_Shape CTiglVehicleElementBuilder::BuildParallelepipedShape(const CCPACSPa
     const double b = p.GetB();
     const double c = p.GetC();
 
-    const double alpha = p.GetAlpha() * M_PI / 180.0;
-    const double beta  = p.GetBeta() * M_PI / 180.0;
-    const double gamma = p.GetGamma() * M_PI / 180.0;
+    const double alpha = p.getAlpha() * M_PI / 180.0;
+    const double beta  = p.getBeta() * M_PI / 180.0;
+    const double gamma = p.getGamma() * M_PI / 180.0;
 
     gp_Vec vA{a, 0, 0};
     gp_Vec vB{b * std::cos(gamma), b * std::sin(gamma), 0};
@@ -107,10 +108,13 @@ TopoDS_Shape CTiglVehicleElementBuilder::BuildParallelepipedShape(const CCPACSPa
 
 TopoDS_Shape CTiglVehicleElementBuilder::BuildFrustumShape(const CCPACSFrustum& f)
 {
-    double radius = f.GetLowerRadiusX();
-    double height = f.GetHeight();
+    const double lowerRadiusX = f.GetLowerRadiusX();
+    const double lowerRadiusY = f.getLowerRadiusY();
+    const double upperRadiusX = f.getUpperRadiusX();
+    const double upperRadiusY = f.getUpperRadiusY();
+    double height             = f.GetHeight();
 
-    TopoDS_Shape frustum =  BRepPrimAPI_MakeCylinder(radius, height);
+    TopoDS_Shape frustum = BRepPrimAPI_MakeCylinder(lowerRadiusX, height);
 
     gp_Trsf tr;
     tr.SetTranslation(gp_Vec(0, 0, -height * 0.5));
@@ -121,8 +125,16 @@ TopoDS_Shape CTiglVehicleElementBuilder::BuildFrustumShape(const CCPACSFrustum& 
 
 TopoDS_Shape CTiglVehicleElementBuilder::BuildEllipsoidShape(const CCPACSEllipsoid& e)
 {
-    double radius = e.GetRadiusX();
-    return BRepPrimAPI_MakeSphere(radius);
+    double radiusX = e.GetRadiusX();
+    double radiusY = e.getRadiusY();
+    double radiusZ = e.getRadiusZ();
+
+    TopoDS_Shape sphere = BRepPrimAPI_MakeSphere(1.0).Shape();
+
+    gp_Mat M(radiusX, 0.0, 0.0, 0.0, radiusY, 0.0, 0.0, 0.0, radiusZ);
+    gp_GTrsf gtrsf(M, gp_XYZ(0.0, 0.0, 0.0));
+    BRepBuilderAPI_GTransform transformer(sphere, gtrsf, true);
+    return transformer.Shape();
 }
 
 CTiglVehicleElementBuilder::operator PNamedShape()

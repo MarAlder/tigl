@@ -318,6 +318,8 @@
                     <geometry>
                         <ellipsoid>
                             <radiusX>1.</radiusX>
+							<radiusY>0.5</radiusY>
+							<radiusZ>2.</radiusZ>
                         </ellipsoid>
                     </geometry>
                 </genericComponent>

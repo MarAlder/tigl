@@ -29,9 +29,17 @@ class CCPACSParallelepiped : public generated::CPACSParallelepiped
 public:
     TIGL_EXPORT CCPACSParallelepiped(CCPACSElementGeometry* parent);
 
-    
+    /**
+     * @brief Returns either value from CPACS or default.
+     */
+    TIGL_EXPORT double getAlpha() const;
+    TIGL_EXPORT double getBeta() const;
+    TIGL_EXPORT double getGamma() const;
+
 private:
-    
+    double _default_alpha;
+    double _default_beta;
+    double _default_gamma;
 };
 
 } // namespace tigl
