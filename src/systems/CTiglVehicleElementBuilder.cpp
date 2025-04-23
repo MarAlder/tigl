@@ -22,15 +22,12 @@
 #include "CCPACSFrustum.h"
 #include "CCPACSEllipsoid.h"
 
-// #include "TopoDS_Compound.hxx"
-// #include "TopoDS_Builder.hxx"
-// #include "BRepBuilderAPI_Transform.hxx"
-
 #include <BRepBuilderAPI_MakePolygon.hxx>
 #include <BRepBuilderAPI_MakeFace.hxx>
 #include <BRepPrimAPI_MakePrism.hxx>
 #include <BRepPrimAPI_MakeCylinder.hxx>
 #include <BRepPrimAPI_MakeSphere.hxx>
+#include <BRepBuilderAPI_Transform.hxx>
 
 namespace tigl
 {
@@ -45,52 +42,17 @@ CTiglVehicleElementBuilder::CTiglVehicleElementBuilder(const CCPACSVehicleElemen
 
 PNamedShape CTiglVehicleElementBuilder::BuildShape()
 {
-    // Dummy implementation
-    // ToDo: replace with actual implementation
+    const auto& geom = m_vehicleElement.GetGeometry();
     TopoDS_Shape elementShape;
 
-    if (auto& parallelepiped = m_vehicleElement.GetGeometry().GetParallelepiped_choice1()) {
-        double abs_a = parallelepiped->GetA();
-        double abs_b = parallelepiped->GetB();
-        double abs_c = parallelepiped->GetC();
-
-        double alphaRad = parallelepiped->GetAlpha() * M_PI / 180.0;
-        double betaRad  = parallelepiped->GetBeta() * M_PI / 180.0;
-        double gammaRad = parallelepiped->GetGamma() * M_PI / 180.0;
-
-        // Base vectors a, b, c
-        gp_Vec vec_a(abs_a, 0, 0);
-        gp_Vec vec_b(abs_b * cos(gammaRad), abs_b * sin(gammaRad), 0);
-        gp_Vec vec_c(abs_c * cos(betaRad), abs_c * (cos(alphaRad) - cos(betaRad) * cos(gammaRad)) / sin(gammaRad),
-                     abs_c * sqrt(1 - pow(cos(betaRad), 2) -
-                                  pow((cos(alphaRad) - cos(betaRad) * cos(gammaRad)) / sin(gammaRad), 2)));
-
-        // Base points
-        gp_Pnt p0(0, 0, 0);
-        gp_Pnt p1 = p0.Translated(vec_a);
-        gp_Pnt p2 = p0.Translated(vec_b);
-        gp_Pnt p3 = p0.Translated(vec_a + vec_b);
-
-        // Generate base face
-        BRepBuilderAPI_MakePolygon poly;
-        poly.Add(p0);
-        poly.Add(p1);
-        poly.Add(p3);
-        poly.Add(p2);
-        poly.Close();
-        TopoDS_Face baseFace = BRepBuilderAPI_MakeFace(poly.Wire());
-
-        // Extrude base face along vector c
-        elementShape = BRepPrimAPI_MakePrism(baseFace, vec_c);
+    if (auto& p = geom.GetParallelepiped_choice1()) {
+        elementShape = BuildParallelepipedShape(*p);
     }
-    else if (auto& frustum = m_vehicleElement.GetGeometry().GetFrustum_choice2()) {
-        double height       = frustum->GetHeight();
-        double lowerRadiusX = frustum->GetLowerRadiusX();
-        elementShape        = BRepPrimAPI_MakeCylinder(lowerRadiusX, height);
+    else if (auto& f = geom.GetFrustum_choice2()) {
+        elementShape = BuildFrustumShape(*f);
     }
-    else if (auto& ellipsoid = m_vehicleElement.GetGeometry().GetEllipsoid_choice3()) {
-        double radiusX = ellipsoid->GetRadiusX();
-        elementShape   = BRepPrimAPI_MakeSphere(radiusX);
+    else if (auto& e = geom.GetEllipsoid_choice3()) {
+        elementShape = BuildEllipsoidShape(*e);
     }
     else {
         throw CTiglError("Unsupported geometry type");
@@ -105,6 +67,63 @@ PNamedShape CTiglVehicleElementBuilder::BuildShape()
 
     return loft;
 };
+
+TopoDS_Shape CTiglVehicleElementBuilder::BuildParallelepipedShape(const CCPACSParallelepiped& p)
+{
+    const double a = p.GetA();
+    const double b = p.GetB();
+    const double c = p.GetC();
+
+    const double alpha = p.GetAlpha() * M_PI / 180.0;
+    const double beta  = p.GetBeta() * M_PI / 180.0;
+    const double gamma = p.GetGamma() * M_PI / 180.0;
+
+    gp_Vec vA{a, 0, 0};
+    gp_Vec vB{b * std::cos(gamma), b * std::sin(gamma), 0};
+    const double zC =
+        c * std::sqrt(1 - std::pow(std::cos(beta), 2) -
+                      std::pow((std::cos(alpha) - std::cos(beta) * std::cos(gamma)) / std::sin(gamma), 2));
+    gp_Vec vC{c * std::cos(beta), c * (std::cos(alpha) - std::cos(beta) * std::cos(gamma)) / std::sin(gamma), zC};
+
+    BRepBuilderAPI_MakePolygon poly;
+    const gp_Pnt p0{0, 0, 0};
+    poly.Add(p0);
+    poly.Add(p0.Translated(vA));
+    poly.Add(p0.Translated(vA).Translated(vB));
+    poly.Add(p0.Translated(vB));
+    poly.Close();
+    TopoDS_Face base = BRepBuilderAPI_MakeFace(poly.Wire());
+
+    TopoDS_Shape parallelepiped = BRepPrimAPI_MakePrism(base, vC).Shape();
+
+    // Shift the shape so its centroid is at the origin
+    gp_Vec center = (vA + vB + vC) * 0.5;
+    gp_Trsf tr;
+    tr.SetTranslation(gp_Vec(-center.X(), -center.Y(), -center.Z()));
+    TopoDS_Shape centered_parallelepiped = BRepBuilderAPI_Transform(parallelepiped, tr, true).Shape();
+
+    return centered_parallelepiped;
+}
+
+TopoDS_Shape CTiglVehicleElementBuilder::BuildFrustumShape(const CCPACSFrustum& f)
+{
+    double radius = f.GetLowerRadiusX();
+    double height = f.GetHeight();
+
+    TopoDS_Shape frustum =  BRepPrimAPI_MakeCylinder(radius, height);
+
+    gp_Trsf tr;
+    tr.SetTranslation(gp_Vec(0, 0, -height * 0.5));
+    TopoDS_Shape centered_frustum = BRepBuilderAPI_Transform(frustum, tr, true).Shape();
+
+    return centered_frustum;
+}
+
+TopoDS_Shape CTiglVehicleElementBuilder::BuildEllipsoidShape(const CCPACSEllipsoid& e)
+{
+    double radius = e.GetRadiusX();
+    return BRepPrimAPI_MakeSphere(radius);
+}
 
 CTiglVehicleElementBuilder::operator PNamedShape()
 {

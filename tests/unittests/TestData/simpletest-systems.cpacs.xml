@@ -217,7 +217,7 @@
                             <name>Generic System 1</name>
                             <transformation>
                                 <translation>
-                                    <x>1.234</x>
+                                    <x>0</x>
                                     <y>0</y>
                                     <z>0</z>
                                 </translation>
@@ -229,7 +229,7 @@
                                     <parentUID>SimpleFuselage</parentUID>
                                     <transformation>
                                         <translation>
-                                            <x>1.234</x>
+                                            <x>1</x>
                                             <y>0</y>
                                             <z>0</z>
                                         </translation>
@@ -299,8 +299,8 @@
                             <b>2.</b>
                             <c>3.</c>
                             <alpha>80.</alpha>
-                            <beta>80.</beta>
-                            <gamma>80.</gamma>
+                            <beta>45.</beta>
+                            <gamma>60.</gamma>
                         </parallelepiped>
                     </geometry>
                 </genericComponent>

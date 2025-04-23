@@ -35,6 +35,10 @@ public:
 private:
     const CCPACSVehicleElementBase& m_vehicleElement;
     CTiglTransformation const* m_transformation = nullptr;
+
+    TopoDS_Shape BuildParallelepipedShape(const CCPACSParallelepiped& p);
+    TopoDS_Shape BuildFrustumShape(const CCPACSFrustum& f);
+    TopoDS_Shape BuildEllipsoidShape(const CCPACSEllipsoid& e);
 };
 
 } //namespace tigl
