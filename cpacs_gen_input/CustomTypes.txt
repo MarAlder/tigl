@@ -41,6 +41,9 @@ CPACSGenericSystems                CCPACSGenericSystems
 CPACSGenericSystem                 CCPACSGenericSystem
 CPACSComponents                    CCPACSComponents
 CPACSComponent                     CCPACSComponent
+CPACSParallelepiped                CCPACSParallelepiped
+CPACSFrustum                       CCPACSFrustum
+CPACSEllipsoid                     CCPACSEllipsoid
 
 CPACSFuselage                      CCPACSFuselage
 CPACSFuselages                     CCPACSFuselages

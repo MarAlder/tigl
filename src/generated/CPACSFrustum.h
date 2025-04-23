@@ -100,7 +100,8 @@ namespace generated
     };
 } // namespace generated
 
+// CPACSFrustum is customized, use type CCPACSFrustum directly
+
 // Aliases in tigl namespace
-using CCPACSFrustum = generated::CPACSFrustum;
 using CCPACSElementGeometry = generated::CPACSElementGeometry;
 } // namespace tigl

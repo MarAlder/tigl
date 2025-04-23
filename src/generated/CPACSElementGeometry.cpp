@@ -392,32 +392,32 @@ namespace generated
         ;
     }
 
-    const boost::optional<CPACSParallelepiped>& CPACSElementGeometry::GetParallelepiped_choice1() const
+    const boost::optional<CCPACSParallelepiped>& CPACSElementGeometry::GetParallelepiped_choice1() const
     {
         return m_parallelepiped_choice1;
     }
 
-    boost::optional<CPACSParallelepiped>& CPACSElementGeometry::GetParallelepiped_choice1()
+    boost::optional<CCPACSParallelepiped>& CPACSElementGeometry::GetParallelepiped_choice1()
     {
         return m_parallelepiped_choice1;
     }
 
-    const boost::optional<CPACSFrustum>& CPACSElementGeometry::GetFrustum_choice2() const
+    const boost::optional<CCPACSFrustum>& CPACSElementGeometry::GetFrustum_choice2() const
     {
         return m_frustum_choice2;
     }
 
-    boost::optional<CPACSFrustum>& CPACSElementGeometry::GetFrustum_choice2()
+    boost::optional<CCPACSFrustum>& CPACSElementGeometry::GetFrustum_choice2()
     {
         return m_frustum_choice2;
     }
 
-    const boost::optional<CPACSEllipsoid>& CPACSElementGeometry::GetEllipsoid_choice3() const
+    const boost::optional<CCPACSEllipsoid>& CPACSElementGeometry::GetEllipsoid_choice3() const
     {
         return m_ellipsoid_choice3;
     }
 
-    boost::optional<CPACSEllipsoid>& CPACSElementGeometry::GetEllipsoid_choice3()
+    boost::optional<CCPACSEllipsoid>& CPACSElementGeometry::GetEllipsoid_choice3()
     {
         return m_ellipsoid_choice3;
     }
@@ -442,7 +442,7 @@ namespace generated
         return m_boundingBox_choice5;
     }
 
-    CPACSParallelepiped& CPACSElementGeometry::GetParallelepiped_choice1(CreateIfNotExistsTag)
+    CCPACSParallelepiped& CPACSElementGeometry::GetParallelepiped_choice1(CreateIfNotExistsTag)
     {
         if (!m_parallelepiped_choice1)
             m_parallelepiped_choice1 = boost::in_place(this);
@@ -454,7 +454,7 @@ namespace generated
         m_parallelepiped_choice1 = boost::none;
     }
 
-    CPACSFrustum& CPACSElementGeometry::GetFrustum_choice2(CreateIfNotExistsTag)
+    CCPACSFrustum& CPACSElementGeometry::GetFrustum_choice2(CreateIfNotExistsTag)
     {
         if (!m_frustum_choice2)
             m_frustum_choice2 = boost::in_place(this);
@@ -466,7 +466,7 @@ namespace generated
         m_frustum_choice2 = boost::none;
     }
 
-    CPACSEllipsoid& CPACSElementGeometry::GetEllipsoid_choice3(CreateIfNotExistsTag)
+    CCPACSEllipsoid& CPACSElementGeometry::GetEllipsoid_choice3(CreateIfNotExistsTag)
     {
         if (!m_ellipsoid_choice3)
             m_ellipsoid_choice3 = boost::in_place(this);

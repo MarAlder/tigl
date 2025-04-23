@@ -19,14 +19,14 @@
 
 #include <boost/optional.hpp>
 #include <boost/utility/in_place_factory.hpp>
+#include <CCPACSEllipsoid.h>
+#include <CCPACSFrustum.h>
+#include <CCPACSParallelepiped.h>
 #include <string>
 #include <tixi.h>
 #include <typeinfo>
 #include "CPACSBoundingBox.h"
-#include "CPACSEllipsoid.h"
 #include "CPACSExternalGeometry.h"
-#include "CPACSFrustum.h"
-#include "CPACSParallelepiped.h"
 #include "CreateIfNotExists.h"
 #include "CTiglError.h"
 #include "tigl_internal.h"
@@ -112,14 +112,14 @@ namespace generated
 
         TIGL_EXPORT bool ValidateChoices() const;
 
-        TIGL_EXPORT virtual const boost::optional<CPACSParallelepiped>& GetParallelepiped_choice1() const;
-        TIGL_EXPORT virtual boost::optional<CPACSParallelepiped>& GetParallelepiped_choice1();
+        TIGL_EXPORT virtual const boost::optional<CCPACSParallelepiped>& GetParallelepiped_choice1() const;
+        TIGL_EXPORT virtual boost::optional<CCPACSParallelepiped>& GetParallelepiped_choice1();
 
-        TIGL_EXPORT virtual const boost::optional<CPACSFrustum>& GetFrustum_choice2() const;
-        TIGL_EXPORT virtual boost::optional<CPACSFrustum>& GetFrustum_choice2();
+        TIGL_EXPORT virtual const boost::optional<CCPACSFrustum>& GetFrustum_choice2() const;
+        TIGL_EXPORT virtual boost::optional<CCPACSFrustum>& GetFrustum_choice2();
 
-        TIGL_EXPORT virtual const boost::optional<CPACSEllipsoid>& GetEllipsoid_choice3() const;
-        TIGL_EXPORT virtual boost::optional<CPACSEllipsoid>& GetEllipsoid_choice3();
+        TIGL_EXPORT virtual const boost::optional<CCPACSEllipsoid>& GetEllipsoid_choice3() const;
+        TIGL_EXPORT virtual boost::optional<CCPACSEllipsoid>& GetEllipsoid_choice3();
 
         TIGL_EXPORT virtual const boost::optional<CPACSExternalGeometry>& GetExternalGeometry_choice4() const;
         TIGL_EXPORT virtual boost::optional<CPACSExternalGeometry>& GetExternalGeometry_choice4();
@@ -127,13 +127,13 @@ namespace generated
         TIGL_EXPORT virtual const boost::optional<CPACSBoundingBox>& GetBoundingBox_choice5() const;
         TIGL_EXPORT virtual boost::optional<CPACSBoundingBox>& GetBoundingBox_choice5();
 
-        TIGL_EXPORT virtual CPACSParallelepiped& GetParallelepiped_choice1(CreateIfNotExistsTag);
+        TIGL_EXPORT virtual CCPACSParallelepiped& GetParallelepiped_choice1(CreateIfNotExistsTag);
         TIGL_EXPORT virtual void RemoveParallelepiped_choice1();
 
-        TIGL_EXPORT virtual CPACSFrustum& GetFrustum_choice2(CreateIfNotExistsTag);
+        TIGL_EXPORT virtual CCPACSFrustum& GetFrustum_choice2(CreateIfNotExistsTag);
         TIGL_EXPORT virtual void RemoveFrustum_choice2();
 
-        TIGL_EXPORT virtual CPACSEllipsoid& GetEllipsoid_choice3(CreateIfNotExistsTag);
+        TIGL_EXPORT virtual CCPACSEllipsoid& GetEllipsoid_choice3(CreateIfNotExistsTag);
         TIGL_EXPORT virtual void RemoveEllipsoid_choice3();
 
         TIGL_EXPORT virtual CPACSExternalGeometry& GetExternalGeometry_choice4(CreateIfNotExistsTag);
@@ -148,9 +148,9 @@ namespace generated
 
         CTiglUIDManager* m_uidMgr;
 
-        boost::optional<CPACSParallelepiped>   m_parallelepiped_choice1;
-        boost::optional<CPACSFrustum>          m_frustum_choice2;
-        boost::optional<CPACSEllipsoid>        m_ellipsoid_choice3;
+        boost::optional<CCPACSParallelepiped>  m_parallelepiped_choice1;
+        boost::optional<CCPACSFrustum>         m_frustum_choice2;
+        boost::optional<CCPACSEllipsoid>       m_ellipsoid_choice3;
         boost::optional<CPACSExternalGeometry> m_externalGeometry_choice4;
         boost::optional<CPACSBoundingBox>      m_boundingBox_choice5;
 

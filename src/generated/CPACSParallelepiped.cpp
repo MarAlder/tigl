@@ -28,9 +28,9 @@ namespace tigl
 namespace generated
 {
     CPACSParallelepiped::CPACSParallelepiped(CPACSElementGeometry* parent)
-        : m_length(0)
-        , m_width(0)
-        , m_height(0)
+        : m_a(0)
+        , m_b(0)
+        , m_c(0)
         , m_alpha(0)
         , m_beta(0)
         , m_gamma(0)
@@ -71,28 +71,28 @@ namespace generated
 
     void CPACSParallelepiped::ReadCPACS(const TixiDocumentHandle& tixiHandle, const std::string& xpath)
     {
-        // read element length
-        if (tixi::TixiCheckElement(tixiHandle, xpath + "/length")) {
-            m_length = tixi::TixiGetElement<double>(tixiHandle, xpath + "/length");
+        // read element a
+        if (tixi::TixiCheckElement(tixiHandle, xpath + "/a")) {
+            m_a = tixi::TixiGetElement<double>(tixiHandle, xpath + "/a");
         }
         else {
-            LOG(ERROR) << "Required element length is missing at xpath " << xpath;
+            LOG(ERROR) << "Required element a is missing at xpath " << xpath;
         }
 
-        // read element width
-        if (tixi::TixiCheckElement(tixiHandle, xpath + "/width")) {
-            m_width = tixi::TixiGetElement<double>(tixiHandle, xpath + "/width");
+        // read element b
+        if (tixi::TixiCheckElement(tixiHandle, xpath + "/b")) {
+            m_b = tixi::TixiGetElement<double>(tixiHandle, xpath + "/b");
         }
         else {
-            LOG(ERROR) << "Required element width is missing at xpath " << xpath;
+            LOG(ERROR) << "Required element b is missing at xpath " << xpath;
         }
 
-        // read element height
-        if (tixi::TixiCheckElement(tixiHandle, xpath + "/height")) {
-            m_height = tixi::TixiGetElement<double>(tixiHandle, xpath + "/height");
+        // read element c
+        if (tixi::TixiCheckElement(tixiHandle, xpath + "/c")) {
+            m_c = tixi::TixiGetElement<double>(tixiHandle, xpath + "/c");
         }
         else {
-            LOG(ERROR) << "Required element height is missing at xpath " << xpath;
+            LOG(ERROR) << "Required element c is missing at xpath " << xpath;
         }
 
         // read element alpha
@@ -123,19 +123,19 @@ namespace generated
 
     void CPACSParallelepiped::WriteCPACS(const TixiDocumentHandle& tixiHandle, const std::string& xpath) const
     {
-        const std::vector<std::string> childElemOrder = { "length", "width", "height", "alpha", "beta", "gamma" };
+        const std::vector<std::string> childElemOrder = { "a", "b", "c", "alpha", "beta", "gamma" };
 
-        // write element length
-        tixi::TixiCreateSequenceElementIfNotExists(tixiHandle, xpath + "/length", childElemOrder);
-        tixi::TixiSaveElement(tixiHandle, xpath + "/length", m_length);
+        // write element a
+        tixi::TixiCreateSequenceElementIfNotExists(tixiHandle, xpath + "/a", childElemOrder);
+        tixi::TixiSaveElement(tixiHandle, xpath + "/a", m_a);
 
-        // write element width
-        tixi::TixiCreateSequenceElementIfNotExists(tixiHandle, xpath + "/width", childElemOrder);
-        tixi::TixiSaveElement(tixiHandle, xpath + "/width", m_width);
+        // write element b
+        tixi::TixiCreateSequenceElementIfNotExists(tixiHandle, xpath + "/b", childElemOrder);
+        tixi::TixiSaveElement(tixiHandle, xpath + "/b", m_b);
 
-        // write element height
-        tixi::TixiCreateSequenceElementIfNotExists(tixiHandle, xpath + "/height", childElemOrder);
-        tixi::TixiSaveElement(tixiHandle, xpath + "/height", m_height);
+        // write element c
+        tixi::TixiCreateSequenceElementIfNotExists(tixiHandle, xpath + "/c", childElemOrder);
+        tixi::TixiSaveElement(tixiHandle, xpath + "/c", m_c);
 
         // write element alpha
         tixi::TixiCreateSequenceElementIfNotExists(tixiHandle, xpath + "/alpha", childElemOrder);
@@ -151,34 +151,34 @@ namespace generated
 
     }
 
-    const double& CPACSParallelepiped::GetLength() const
+    const double& CPACSParallelepiped::GetA() const
     {
-        return m_length;
+        return m_a;
     }
 
-    void CPACSParallelepiped::SetLength(const double& value)
+    void CPACSParallelepiped::SetA(const double& value)
     {
-        m_length = value;
+        m_a = value;
     }
 
-    const double& CPACSParallelepiped::GetWidth() const
+    const double& CPACSParallelepiped::GetB() const
     {
-        return m_width;
+        return m_b;
     }
 
-    void CPACSParallelepiped::SetWidth(const double& value)
+    void CPACSParallelepiped::SetB(const double& value)
     {
-        m_width = value;
+        m_b = value;
     }
 
-    const double& CPACSParallelepiped::GetHeight() const
+    const double& CPACSParallelepiped::GetC() const
     {
-        return m_height;
+        return m_c;
     }
 
-    void CPACSParallelepiped::SetHeight(const double& value)
+    void CPACSParallelepiped::SetC(const double& value)
     {
-        m_height = value;
+        m_c = value;
     }
 
     const double& CPACSParallelepiped::GetAlpha() const

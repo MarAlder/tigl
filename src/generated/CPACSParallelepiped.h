@@ -54,14 +54,14 @@ namespace generated
         TIGL_EXPORT virtual void ReadCPACS(const TixiDocumentHandle& tixiHandle, const std::string& xpath);
         TIGL_EXPORT virtual void WriteCPACS(const TixiDocumentHandle& tixiHandle, const std::string& xpath) const;
 
-        TIGL_EXPORT virtual const double& GetLength() const;
-        TIGL_EXPORT virtual void SetLength(const double& value);
+        TIGL_EXPORT virtual const double& GetA() const;
+        TIGL_EXPORT virtual void SetA(const double& value);
 
-        TIGL_EXPORT virtual const double& GetWidth() const;
-        TIGL_EXPORT virtual void SetWidth(const double& value);
+        TIGL_EXPORT virtual const double& GetB() const;
+        TIGL_EXPORT virtual void SetB(const double& value);
 
-        TIGL_EXPORT virtual const double& GetHeight() const;
-        TIGL_EXPORT virtual void SetHeight(const double& value);
+        TIGL_EXPORT virtual const double& GetC() const;
+        TIGL_EXPORT virtual void SetC(const double& value);
 
         TIGL_EXPORT virtual const double& GetAlpha() const;
         TIGL_EXPORT virtual void SetAlpha(const double& value);
@@ -75,14 +75,14 @@ namespace generated
     protected:
         CPACSElementGeometry* m_parent;
 
-        /// Length (in local x-direction) [m]
-        double m_length;
+        /// Length of edge a (if cuboid, then a equals the total length in x-direction) [m]
+        double m_a;
 
-        /// Width (in local y-direction) [m]
-        double m_width;
+        /// Length of edge b (if cuboid, then b equals the total width in y-direction) [m]
+        double m_b;
 
-        /// Height (in local z-direction) [m]
-        double m_height;
+        /// Length of edge c (if cuboid, then c equals the total height in z-direction) [m]
+        double m_c;
 
         /// Angle between edges in width and height direction (default: 90deg) [deg]
         double m_alpha;
@@ -102,7 +102,8 @@ namespace generated
     };
 } // namespace generated
 
+// CPACSParallelepiped is customized, use type CCPACSParallelepiped directly
+
 // Aliases in tigl namespace
-using CCPACSParallelepiped = generated::CPACSParallelepiped;
 using CCPACSElementGeometry = generated::CPACSElementGeometry;
 } // namespace tigl

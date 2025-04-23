@@ -86,7 +86,8 @@ namespace generated
     };
 } // namespace generated
 
+// CPACSEllipsoid is customized, use type CCPACSEllipsoid directly
+
 // Aliases in tigl namespace
-using CCPACSEllipsoid = generated::CPACSEllipsoid;
 using CCPACSElementGeometry = generated::CPACSElementGeometry;
 } // namespace tigl
