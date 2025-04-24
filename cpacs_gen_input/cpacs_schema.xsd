@@ -36589,29 +36589,19 @@ The fuel tank volume type should also be used for the wing fuel tank</xsd:docume
         <xsd:complexContent>
             <xsd:extension base="complexBaseType">
                 <xsd:all>
-                    <xsd:element name="lowerRadiusX" type="doubleBaseType">
+                    <xsd:element name="lowerRadius" type="doubleBaseType">
                         <xsd:annotation>
-                            <xsd:documentation>Upper radius in local x-direction [m]</xsd:documentation>
+                            <xsd:documentation>Lower radius [m]</xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
-                    <xsd:element name="lowerRadiusY" minOccurs="0" type="doubleBaseType">
+                    <xsd:element name="upperRadius" minOccurs="0" type="doubleBaseType">
                         <xsd:annotation>
-                            <xsd:documentation>Upper radius in local y-direction [m] (if not defined: equals lowerRadiusX)</xsd:documentation>
+                            <xsd:documentation>Upper radius [m] (if not defined: equals lowerRadius)</xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
                     <xsd:element name="height" type="doubleBaseType">
                         <xsd:annotation>
                             <xsd:documentation>Height [m]</xsd:documentation>
-                        </xsd:annotation>
-                    </xsd:element>
-                    <xsd:element name="upperRadiusX" minOccurs="0" type="doubleBaseType">
-                        <xsd:annotation>
-                            <xsd:documentation>Upper radius in local x-direction [m] (if not defined: equals lowerRadiusX)</xsd:documentation>
-                        </xsd:annotation>
-                    </xsd:element>
-                    <xsd:element name="upperRadiusY" minOccurs="0" type="doubleBaseType">
-                        <xsd:annotation>
-                            <xsd:documentation>Upper radius in local y-direction [m] (if not defined: equals upperRadiusX)</xsd:documentation>
                         </xsd:annotation>
                     </xsd:element>
                 </xsd:all>

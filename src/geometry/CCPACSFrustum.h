@@ -30,11 +30,10 @@ public:
     TIGL_EXPORT CCPACSFrustum(CCPACSElementGeometry* parent);
 
     /**
-     * @brief Returns either value from CPACS or default.
+     * @brief According to the CPACS documentation, this method either returns the 
+     * value from CPACS or the default value, which equals the lower radius.
      */
-    TIGL_EXPORT double getLowerRadiusY() const;
-    TIGL_EXPORT double getUpperRadiusX() const;
-    TIGL_EXPORT double getUpperRadiusY() const;
+    TIGL_EXPORT double getUpperRadius() const;
 
 private:
 };

@@ -28,7 +28,7 @@ namespace tigl
 namespace generated
 {
     CPACSFrustum::CPACSFrustum(CPACSElementGeometry* parent)
-        : m_lowerRadiusX(0)
+        : m_lowerRadius(0)
         , m_height(0)
     {
         //assert(parent != NULL);
@@ -67,17 +67,17 @@ namespace generated
 
     void CPACSFrustum::ReadCPACS(const TixiDocumentHandle& tixiHandle, const std::string& xpath)
     {
-        // read element lowerRadiusX
-        if (tixi::TixiCheckElement(tixiHandle, xpath + "/lowerRadiusX")) {
-            m_lowerRadiusX = tixi::TixiGetElement<double>(tixiHandle, xpath + "/lowerRadiusX");
+        // read element lowerRadius
+        if (tixi::TixiCheckElement(tixiHandle, xpath + "/lowerRadius")) {
+            m_lowerRadius = tixi::TixiGetElement<double>(tixiHandle, xpath + "/lowerRadius");
         }
         else {
-            LOG(ERROR) << "Required element lowerRadiusX is missing at xpath " << xpath;
+            LOG(ERROR) << "Required element lowerRadius is missing at xpath " << xpath;
         }
 
-        // read element lowerRadiusY
-        if (tixi::TixiCheckElement(tixiHandle, xpath + "/lowerRadiusY")) {
-            m_lowerRadiusY = tixi::TixiGetElement<double>(tixiHandle, xpath + "/lowerRadiusY");
+        // read element upperRadius
+        if (tixi::TixiCheckElement(tixiHandle, xpath + "/upperRadius")) {
+            m_upperRadius = tixi::TixiGetElement<double>(tixiHandle, xpath + "/upperRadius");
         }
 
         // read element height
@@ -88,32 +88,22 @@ namespace generated
             LOG(ERROR) << "Required element height is missing at xpath " << xpath;
         }
 
-        // read element upperRadiusX
-        if (tixi::TixiCheckElement(tixiHandle, xpath + "/upperRadiusX")) {
-            m_upperRadiusX = tixi::TixiGetElement<double>(tixiHandle, xpath + "/upperRadiusX");
-        }
-
-        // read element upperRadiusY
-        if (tixi::TixiCheckElement(tixiHandle, xpath + "/upperRadiusY")) {
-            m_upperRadiusY = tixi::TixiGetElement<double>(tixiHandle, xpath + "/upperRadiusY");
-        }
-
     }
 
     void CPACSFrustum::WriteCPACS(const TixiDocumentHandle& tixiHandle, const std::string& xpath) const
     {
-        // write element lowerRadiusX
-        tixi::TixiCreateElementIfNotExists(tixiHandle, xpath + "/lowerRadiusX");
-        tixi::TixiSaveElement(tixiHandle, xpath + "/lowerRadiusX", m_lowerRadiusX);
+        // write element lowerRadius
+        tixi::TixiCreateElementIfNotExists(tixiHandle, xpath + "/lowerRadius");
+        tixi::TixiSaveElement(tixiHandle, xpath + "/lowerRadius", m_lowerRadius);
 
-        // write element lowerRadiusY
-        if (m_lowerRadiusY) {
-            tixi::TixiCreateElementIfNotExists(tixiHandle, xpath + "/lowerRadiusY");
-            tixi::TixiSaveElement(tixiHandle, xpath + "/lowerRadiusY", *m_lowerRadiusY);
+        // write element upperRadius
+        if (m_upperRadius) {
+            tixi::TixiCreateElementIfNotExists(tixiHandle, xpath + "/upperRadius");
+            tixi::TixiSaveElement(tixiHandle, xpath + "/upperRadius", *m_upperRadius);
         }
         else {
-            if (tixi::TixiCheckElement(tixiHandle, xpath + "/lowerRadiusY")) {
-                tixi::TixiRemoveElement(tixiHandle, xpath + "/lowerRadiusY");
+            if (tixi::TixiCheckElement(tixiHandle, xpath + "/upperRadius")) {
+                tixi::TixiRemoveElement(tixiHandle, xpath + "/upperRadius");
             }
         }
 
@@ -121,48 +111,26 @@ namespace generated
         tixi::TixiCreateElementIfNotExists(tixiHandle, xpath + "/height");
         tixi::TixiSaveElement(tixiHandle, xpath + "/height", m_height);
 
-        // write element upperRadiusX
-        if (m_upperRadiusX) {
-            tixi::TixiCreateElementIfNotExists(tixiHandle, xpath + "/upperRadiusX");
-            tixi::TixiSaveElement(tixiHandle, xpath + "/upperRadiusX", *m_upperRadiusX);
-        }
-        else {
-            if (tixi::TixiCheckElement(tixiHandle, xpath + "/upperRadiusX")) {
-                tixi::TixiRemoveElement(tixiHandle, xpath + "/upperRadiusX");
-            }
-        }
-
-        // write element upperRadiusY
-        if (m_upperRadiusY) {
-            tixi::TixiCreateElementIfNotExists(tixiHandle, xpath + "/upperRadiusY");
-            tixi::TixiSaveElement(tixiHandle, xpath + "/upperRadiusY", *m_upperRadiusY);
-        }
-        else {
-            if (tixi::TixiCheckElement(tixiHandle, xpath + "/upperRadiusY")) {
-                tixi::TixiRemoveElement(tixiHandle, xpath + "/upperRadiusY");
-            }
-        }
-
     }
 
-    const double& CPACSFrustum::GetLowerRadiusX() const
+    const double& CPACSFrustum::GetLowerRadius() const
     {
-        return m_lowerRadiusX;
+        return m_lowerRadius;
     }
 
-    void CPACSFrustum::SetLowerRadiusX(const double& value)
+    void CPACSFrustum::SetLowerRadius(const double& value)
     {
-        m_lowerRadiusX = value;
+        m_lowerRadius = value;
     }
 
-    const boost::optional<double>& CPACSFrustum::GetLowerRadiusY() const
+    const boost::optional<double>& CPACSFrustum::GetUpperRadius() const
     {
-        return m_lowerRadiusY;
+        return m_upperRadius;
     }
 
-    void CPACSFrustum::SetLowerRadiusY(const boost::optional<double>& value)
+    void CPACSFrustum::SetUpperRadius(const boost::optional<double>& value)
     {
-        m_lowerRadiusY = value;
+        m_upperRadius = value;
     }
 
     const double& CPACSFrustum::GetHeight() const
@@ -173,26 +141,6 @@ namespace generated
     void CPACSFrustum::SetHeight(const double& value)
     {
         m_height = value;
-    }
-
-    const boost::optional<double>& CPACSFrustum::GetUpperRadiusX() const
-    {
-        return m_upperRadiusX;
-    }
-
-    void CPACSFrustum::SetUpperRadiusX(const boost::optional<double>& value)
-    {
-        m_upperRadiusX = value;
-    }
-
-    const boost::optional<double>& CPACSFrustum::GetUpperRadiusY() const
-    {
-        return m_upperRadiusY;
-    }
-
-    void CPACSFrustum::SetUpperRadiusY(const boost::optional<double>& value)
-    {
-        m_upperRadiusY = value;
     }
 
 } // namespace generated

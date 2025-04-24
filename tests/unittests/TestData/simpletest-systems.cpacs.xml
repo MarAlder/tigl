@@ -309,7 +309,8 @@
                     <geometry>
                         <frustum>
                             <height>1.</height>
-                            <lowerRadiusX>0.5</lowerRadiusX>
+                            <lowerRadius>0.7</lowerRadius>
+							<upperRadius>0</upperRadius>
                         </frustum>
                     </geometry>
                 </genericComponent>

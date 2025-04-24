@@ -30,6 +30,12 @@
 #include <BRepBuilderAPI_Transform.hxx>
 #include <BRepBuilderAPI_GTransform.hxx>
 
+#include <BRepOffsetAPI_ThruSections.hxx>
+#include <Geom_Ellipse.hxx>
+#include <BRepBuilderAPI_MakeWire.hxx>
+#include <BRepBuilderAPI_MakeEdge.hxx>
+#include <BRepPrimAPI_MakeCone.hxx>
+
 namespace tigl
 {
 
@@ -97,7 +103,6 @@ TopoDS_Shape CTiglVehicleElementBuilder::BuildParallelepipedShape(const CCPACSPa
 
     TopoDS_Shape parallelepiped = BRepPrimAPI_MakePrism(base, vC).Shape();
 
-    // Shift the shape so its centroid is at the origin
     gp_Vec center = (vA + vB + vC) * 0.5;
     gp_Trsf tr;
     tr.SetTranslation(gp_Vec(-center.X(), -center.Y(), -center.Z()));
@@ -108,33 +113,69 @@ TopoDS_Shape CTiglVehicleElementBuilder::BuildParallelepipedShape(const CCPACSPa
 
 TopoDS_Shape CTiglVehicleElementBuilder::BuildFrustumShape(const CCPACSFrustum& f)
 {
-    const double lowerRadiusX = f.GetLowerRadiusX();
-    const double lowerRadiusY = f.getLowerRadiusY();
-    const double upperRadiusX = f.getUpperRadiusX();
-    const double upperRadiusY = f.getUpperRadiusY();
-    double height             = f.GetHeight();
+    try {
+        const double lowerRadius = f.GetLowerRadius();
+        const double upperRadius = f.getUpperRadius();
+        const double height      = f.GetHeight();
 
-    TopoDS_Shape frustum = BRepPrimAPI_MakeCylinder(lowerRadiusX, height);
+        if (lowerRadius < 0.0 || upperRadius < 0.0 || height <= 0.0) {
+            throw std::invalid_argument(
+                "Invalid frustum parameters: Radii must be non-negative and height must be positive.");
+        }
 
-    gp_Trsf tr;
-    tr.SetTranslation(gp_Vec(0, 0, -height * 0.5));
-    TopoDS_Shape centered_frustum = BRepBuilderAPI_Transform(frustum, tr, true).Shape();
+        TopoDS_Shape frustum;
 
-    return centered_frustum;
+        if (std::abs(lowerRadius - upperRadius) < 1e-8) {
+            frustum = BRepPrimAPI_MakeCylinder(lowerRadius, height).Shape();
+        }
+        else {
+            frustum = BRepPrimAPI_MakeCone(lowerRadius, upperRadius, height).Shape();
+        }
+
+        gp_Trsf translation;
+        translation.SetTranslation(gp_Vec(0, 0, -height * 0.5));
+        BRepBuilderAPI_Transform transformer(frustum, translation);
+        frustum = transformer.Shape();
+
+        return frustum;
+    }
+    catch (const Standard_Failure& e) {
+        std::cerr << "OpenCASCADE error while building frustum: " << e.GetMessageString() << std::endl;
+    }
+    catch (const std::exception& e) {
+        std::cerr << "Exception while building frustum: " << e.what() << std::endl;
+    }
+
+    return TopoDS_Shape();
 }
 
 TopoDS_Shape CTiglVehicleElementBuilder::BuildEllipsoidShape(const CCPACSEllipsoid& e)
 {
-    double radiusX = e.GetRadiusX();
-    double radiusY = e.getRadiusY();
-    double radiusZ = e.getRadiusZ();
+    try {
+        double radiusX = e.GetRadiusX();
+        double radiusY = e.getRadiusY();
+        double radiusZ = e.getRadiusZ();
 
-    TopoDS_Shape sphere = BRepPrimAPI_MakeSphere(1.0).Shape();
+        if (radiusX <= 0.0 || radiusY <= 0.0 || radiusZ <= 0.0) {
+            throw std::invalid_argument("Invalid ellipsoid parameters: All radii must be positive.");
+        }
 
-    gp_Mat M(radiusX, 0.0, 0.0, 0.0, radiusY, 0.0, 0.0, 0.0, radiusZ);
-    gp_GTrsf gtrsf(M, gp_XYZ(0.0, 0.0, 0.0));
-    BRepBuilderAPI_GTransform transformer(sphere, gtrsf, true);
-    return transformer.Shape();
+        TopoDS_Shape sphere = BRepPrimAPI_MakeSphere(1.0).Shape();
+
+        gp_Mat M(radiusX, 0.0, 0.0, 0.0, radiusY, 0.0, 0.0, 0.0, radiusZ);
+        gp_GTrsf gtrsf(M, gp_XYZ(0.0, 0.0, 0.0));
+        BRepBuilderAPI_GTransform transformer(sphere, gtrsf, true);
+
+        return transformer.Shape();
+    }
+    catch (const Standard_Failure& e) {
+        std::cerr << "OpenCASCADE error while building ellipsoid: " << e.GetMessageString() << std::endl;
+    }
+    catch (const std::exception& e) {
+        std::cerr << "Exception while building ellipsoid: " << e.what() << std::endl;
+    }
+
+    return TopoDS_Shape();
 }
 
 CTiglVehicleElementBuilder::operator PNamedShape()

@@ -58,38 +58,26 @@ namespace generated
         TIGL_EXPORT virtual void ReadCPACS(const TixiDocumentHandle& tixiHandle, const std::string& xpath);
         TIGL_EXPORT virtual void WriteCPACS(const TixiDocumentHandle& tixiHandle, const std::string& xpath) const;
 
-        TIGL_EXPORT virtual const double& GetLowerRadiusX() const;
-        TIGL_EXPORT virtual void SetLowerRadiusX(const double& value);
+        TIGL_EXPORT virtual const double& GetLowerRadius() const;
+        TIGL_EXPORT virtual void SetLowerRadius(const double& value);
 
-        TIGL_EXPORT virtual const boost::optional<double>& GetLowerRadiusY() const;
-        TIGL_EXPORT virtual void SetLowerRadiusY(const boost::optional<double>& value);
+        TIGL_EXPORT virtual const boost::optional<double>& GetUpperRadius() const;
+        TIGL_EXPORT virtual void SetUpperRadius(const boost::optional<double>& value);
 
         TIGL_EXPORT virtual const double& GetHeight() const;
         TIGL_EXPORT virtual void SetHeight(const double& value);
 
-        TIGL_EXPORT virtual const boost::optional<double>& GetUpperRadiusX() const;
-        TIGL_EXPORT virtual void SetUpperRadiusX(const boost::optional<double>& value);
-
-        TIGL_EXPORT virtual const boost::optional<double>& GetUpperRadiusY() const;
-        TIGL_EXPORT virtual void SetUpperRadiusY(const boost::optional<double>& value);
-
     protected:
         CPACSElementGeometry* m_parent;
 
-        /// Upper radius in local x-direction [m]
-        double                  m_lowerRadiusX;
+        /// Lower radius [m]
+        double                  m_lowerRadius;
 
-        /// Upper radius in local y-direction [m] (if not defined: equals lowerRadiusX)
-        boost::optional<double> m_lowerRadiusY;
+        /// Upper radius [m] (if not defined: equals lowerRadius)
+        boost::optional<double> m_upperRadius;
 
         /// Height [m]
         double                  m_height;
-
-        /// Upper radius in local x-direction [m] (if not defined: equals lowerRadiusX)
-        boost::optional<double> m_upperRadiusX;
-
-        /// Upper radius in local y-direction [m] (if not defined: equals upperRadiusX)
-        boost::optional<double> m_upperRadiusY;
 
     private:
         CPACSFrustum(const CPACSFrustum&) = delete;

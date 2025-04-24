@@ -30,19 +30,9 @@ CCPACSFrustum::CCPACSFrustum(CCPACSElementGeometry* parent)
 {
 }
 
-double CCPACSFrustum::getLowerRadiusY() const
+double CCPACSFrustum::getUpperRadius() const
 {
-    return m_lowerRadiusY.get_value_or(GetLowerRadiusX());
-}
-
-double CCPACSFrustum::getUpperRadiusX() const
-{
-    return m_lowerRadiusY.get_value_or(GetLowerRadiusX());
-}
-
-double CCPACSFrustum::getUpperRadiusY() const
-{
-    return m_lowerRadiusY.get_value_or(getUpperRadiusX());
+    return m_upperRadius.get_value_or(GetLowerRadius());
 }
 
 } // namespace tigl
